@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Dashboard</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+  <style>
+    #upper {
+        padding-top: 40px;
+    }
+    .clock {
+        height: 65px;
+    }
+    #currentDateTime {
+        font-size: xx-large;
+        font-weight: bold;
+    }
+    h1 {
+        font-size: larger;
+        float: left;
+        color: #ff9a9e;
+    }
+    h2 {
+        text-align: center;
+    }
+    .picture {
+        height: 400px;
+        width: 300px;
+        object-fit: cover;
+    }
+    .active {
+        color: black;
+        font-weight: bold;
+        background-color: lightgray;
+    }
+    #exportBtn, #getUserDetailsBtn {
+        margin-bottom: 60px;
+<!--        margin-left: 815px;-->
+    }
+    #getUserDetailsBtn {
+        float: left;
+        margin-left: 250px;
+    }
+    #exportBtn {
+        float: right;
+        margin-right: 250px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+    function updateDateTime() {
+        setInterval(() => {
+            const now = new Date();
+            const formattedTime = now.toLocaleTimeString();
+            const formattedDate = now.toLocaleDateString();
+            document.getElementById('currentDateTime').innerText = formattedDate + ' ' + formattedTime;
+        }, 1000);
+    }
+    document.addEventListener('DOMContentLoaded', updateDateTime);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const username = document.getElementById('hiddenUsername').value;
+
+        // Fetch previous punch-in status
+        fetch('/time_entries/status/' + username)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById('punchInBtn').disabled = true;
+                    document.getElementById('punchOutBtn').disabled = false;
+                } else {
+                    document.getElementById('punchInBtn').disabled = false;
+                    document.getElementById('punchOutBtn').disabled = true;
+                }
+            });
+
+        // Fetch and populate punch details
+        fetch('/time_entries/' + username)
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('punchInOutTable').querySelector('tbody');
+                data.forEach(entry => {
+                    const row = document.createElement("tr");
+                    row.setAttribute("data-id", entry.id);
+                    row.innerHTML = `
+                        <td>${entry.punchIn}</td>
+                        <td>${entry.punchOut || ''}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+    });
+
+    function punchIn() {
+        const username = document.getElementById('hiddenUsername').value;
+        fetch('/time_entries/punch_in?username=' + username, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    const row = document.createElement("tr");
+                    row.setAttribute("data-id", data.id);
+                    const localDateTime = new Date(data.punchIn).toLocaleString();
+                    row.innerHTML = `
+                        <td>${localDateTime}</td>
+                        <td></td>
+                    `;
+                    document.getElementById('punchInOutTable').querySelector('tbody').appendChild(row);
+                    document.getElementById('punchInBtn').disabled = true;
+                    document.getElementById('punchOutBtn').disabled = false;
+                }
+            });
+    }
+
+    function punchOut() {
+        const username = document.getElementById('hiddenUsername').value;
+        fetch('/time_entries/punch_out?username=' + username, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    const row = document.querySelector(`tr[data-id='${data.id}']`);
+                    const localDateTime = new Date(data.punchOut).toLocaleString();
+                    row.querySelector('td:nth-child(2)').textContent = localDateTime;
+                    document.getElementById('punchInBtn').disabled = false;
+                    document.getElementById('punchOutBtn').disabled = true;
+                }
+            });
+    }
+
+    function toggleUploadButton() {
+        const fileInput = document.getElementById('profilePictureInput');
+        const uploadButton = document.getElementById('uploadButton');
+        if (fileInput.files.length > 0) {
+            uploadButton.disabled = false;
+        } else {
+            uploadButton.disabled = true;
+        }
+    }
+
+    function confirmLogout(event) {
+        event.preventDefault();
+        const userConfirmed = confirm("Are you sure you want to log out?");
+        if (userConfirmed) {
+            window.location.href = event.target.href;
+        }
+    }
+  </script>
+</head>
+<body>
+<input type="hidden" id="hiddenUsername" th:value="${user.username}">
+<div class="navigation">
+  <nav>
+    <ul>
+      <h1>Deepija Telecom Pvt. Ltd.</h1>
+      <li><a th:href="@{/logout}" th:classappend="${page == 'logout' ? 'active' : ''}" onclick="confirmLogout(event)">Logout</a></li>
+      <li><a th:href="@{/contact}" th:classappend="${page == 'contact' ? 'active' : ''}">Contact</a></li>
+      <li><a th:href="@{/delete_account}" th:classappend="${page == 'delete_account' ? 'active' : ''}">Delete Account</a></li>
+      <li><a th:href="@{/change_username_password}" th:classappend="${page == 'change_user_password' ? 'active' : ''}">Change Username/Password</a></li>
+      <li><a th:href="@{/edit_profile}" th:classappend="${page == 'edit_profile' ? 'active' : ''}">Edit Profile</a></li>
+      <li><a th:href="@{/dashboard}" th:classappend="${page == 'dashboard' ? 'active' : ''}">Dashboard</a></li>
+    </ul>
+  </nav>
+</div>
+<div id="upper" class="container mt-5 text-center">
+  <h2 class="text-center">Date Time Entry</h2>
+  <div class="clock">
+    <p id="currentDateTime"></p>
+  </div>
+  <button onclick="punchIn()" id="punchInBtn" class="btn btn-info">
+    Punch In <i class="fa fa-sign-in" style="font-size:20px;color:green"></i>
+  </button>
+  <button onclick="punchOut()" id="punchOutBtn" class="btn btn-info">
+    Punch Out <i class="fa fa-sign-out" style="font-size:20px;color:red"></i>
+  </button>
+</div>
+<div class="container mt-5 text-center">
+  <h2 class="text-center">Daily Time Entry Report</h2>
+  <table class="table table-bordered" id="punchInOutTable">
+    <thead>
+    <tr>
+      <th width="50%">Punch In</th>
+      <th width="50%">Punch Out</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Rows -->
+    </tbody>
+  </table>
+</div>
+<div class="container mt-5">
+  <h2 class="text-center">User Dashboard</h2>
+  <div class="d-flex justify-content-center align-items-start">
+    <!-- Profile Picture Section -->
+<!--    <div class="profile-pic-container mr-5 picture">-->
+<!--      <img th:src="@{'/uploads/profile_pics/' + ${user.username} + '.jpg'}"-->
+<!--           onerror="this.src='default_profile.png'" alt="Profile Picture" class="img-thumbnail picture" style="height: 400px; width: 300px; object-fit: cover;">-->
+<!--      <form th:action="@{/upload_profile_picture}" method="post" enctype="multipart/form-data">-->
+<!--        <input type="hidden" name="username" th:value="${user.username}"/>-->
+<!--        <input type="file" id="profilePictureInput" name="profile_picture" class="form-control-file mt-2" onchange="toggleUploadButton()">-->
+<!--        <button type="submit" id="uploadButton" class="btn btn-dark mt-2" disabled>Change Profile Picture</button>-->
+<!--      </form>-->
+<!--    </div>-->
+    <!-- User Data Table Section -->
+    <div>
+      <table class="table table-bordered" id="userDashboardTable">
+        <tr>
+          <th width="200px">ID</th>
+          <td width="400px" th:text="${user.id}"></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td th:text="${user.name}"></td>
+        </tr>
+        <tr>
+          <th>Username</th>
+          <td th:text="${user.username}"></td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td th:text="${user.phone}"></td>
+        </tr>
+        <tr>
+          <th>State</th>
+          <td th:text="${user.state}"></td>
+        </tr>
+        <tr>
+          <th>District</th>
+          <td th:text="${user.district}"></td>
+        </tr>
+        <tr>
+          <th>City</th>
+          <td th:text="${user.city}"></td>
+        </tr>
+        <tr>
+          <th>DOB</th>
+          <td th:text="${user.dob}"></td>
+        </tr>
+        <tr>
+          <th>Gender</th>
+          <td th:text="${user.gender}"></td>
+        </tr>
+        <tr>
+          <th>Course</th>
+          <td th:text="${user.course}"></td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td th:text="${user.address}"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container mt-5 text-center">
+  <button id="getUserDetailsBtn" class="btn btn-primary">JSON</button>
+  <button id="exportBtn" class="btn btn-success">Download CSV</button>
+</div>
+<script>
+  document.getElementById("exportBtn").addEventListener("click", function () {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      let table = document.getElementById("userDashboardTable");
+      let rows = table.querySelectorAll("tr");
+      rows.forEach(row => {
+          let cols = row.querySelectorAll("th, td");
+          let rowContent = Array.from(cols).map(col => col.textContent).join(",");
+          csvContent += rowContent + "\r\n";
+      });
+      const now = new Date();
+      const formattedDate = now.toLocaleDateString('en-GB').replace(/\//g, '-');
+      const formattedTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', '-');
+      const username = "[[${user.username}]]";
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `${username}_${formattedDate}_${formattedTime}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  });
+
+  document.getElementById("getUserDetailsBtn").addEventListener("click", function() {
+      fetch("http://localhost:8080/api/user/details/json")
+          .then(response => response.json())
+          .then(data => {
+              alert(JSON.stringify(data, null, 2));  // Display the data in a formatted JSON string
+          })
+          .catch(error => {
+              console.error("Error fetching user details:", error);
+          });
+  });
+</script>
+</body>
+</html>

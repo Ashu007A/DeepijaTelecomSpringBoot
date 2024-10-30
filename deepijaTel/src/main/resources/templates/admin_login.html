@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Login</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <style>
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            margin: 150px auto;
+            width: 20%;
+        }
+        h1 {
+            font-size: larger;
+            float: left;
+            color: #ff9a9e;
+        }
+        .active {
+            color: black;
+            font-weight: bold;
+            background-color: lightgray;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<nav>
+    <ul>
+        <h1>Deepija Telecom Pvt. Ltd.</h1>
+        <li><a th:href="@{/admin_login}" th:classappend="${page == 'admin_login' ? 'active' : ''}">Admin Login</a></li>
+        <li><a th:href="@{/login}" th:classappend="${page == 'login' ? 'active' : ''}">User Login</a></li>
+        <li><a th:href="@{/register}" th:classappend="${page == 'register' ? 'active' : ''}">Register New User</a></li>
+    </ul>
+</nav>
+
+<h2 style="text-align: center; color: white;">ADMIN LOGIN</h2>
+<form th:action="@{/admin_login}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <input type="submit" value="Submit" style="margin-left:35%;">
+</form>
+</body>
+</html>
