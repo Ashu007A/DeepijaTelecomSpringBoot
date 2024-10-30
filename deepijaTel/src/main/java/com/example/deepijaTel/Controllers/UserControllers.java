@@ -28,39 +28,14 @@ public class UserControllers {
     @Autowired
     private UserServices userService;
 
-    // Dashboard
-    @GetMapping("/dashboard")
-    public String showDashboard(Model model, HttpSession session) {
-        try {
-            String username = (String) session.getAttribute("username");
-            logger.info("Session username: {}", username);
-            if (username == null) {
-                return "redirect:/login";
-            }
-            User user = userService.getUserByUsername(username);
-            logger.info("Retrieved User: {}", user);
-            if (user == null) {
-                logger.error("User not found for username: {}", username);
-                return "redirect:/login";
-            }
-            model.addAttribute("user", user);
-            logger.info("User details added to model: {}", user);
-            return "dashboard";
-        } catch (Exception e) {
-            logger.error("Unexpected error in DashboardController", e);
-            model.addAttribute("error", "An unexpected error occurred.");
-            return "error";
-        }
-    }
-
     // Login
-    @GetMapping("/login")
+    @GetMapping("/user_login")
     public String showLoginForm(Model model) {
-        model.addAttribute("page", "login");
-        return "login";  // Refers to login.html in the templates folder
+        model.addAttribute("page", "user_login");
+        return "user_login";  // Refers to user_login.html in the templates folder
     }
 
-    @PostMapping("/login")
+    @PostMapping("/user_login")
     public String loginUser(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
         logger.info("Login attempt for username: {}", username);
         try {
@@ -72,12 +47,38 @@ public class UserControllers {
             } else {
                 logger.warn("Login failed for username: {}", username);
                 model.addAttribute("error", result);
-                return "login";
+                return "user_login";
             }
         } catch (Exception e) {
             logger.error("Unexpected error during login for username: {}", username, e);
             model.addAttribute("error", "An unexpected error occurred.");
-            return "login";
+            return "user_login";
+        }
+    }
+
+    // Dashboard
+    @GetMapping("/dashboard")
+    public String showDashboard(Model model, HttpSession session) {
+        try {
+            String username = (String) session.getAttribute("username");
+            logger.info("Session username: {}", username);
+            if (username == null) {
+                return "redirect:/user_login";
+            }
+            User user = userService.getUserByUsername(username);
+            logger.info("Retrieved User: {}", user);
+            if (user == null) {
+                logger.error("User not found for username: {}", username);
+                return "redirect:/user_login";
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("page", "dashboard");
+            logger.info("User details added to model: {}", user);
+            return "dashboard";
+        } catch (Exception e) {
+            logger.error("Unexpected error in DashboardController", e);
+            model.addAttribute("error", "An unexpected error occurred.");
+            return "error";
         }
     }
 
@@ -92,7 +93,7 @@ public class UserControllers {
     public String registerUser(User user, Model model) {
         String result = userService.registerUser(user);
         if (result.equals("New account created successfully!")) {
-            return "redirect:/login";
+            return "redirect:/user_login";
         } else {
             model.addAttribute("error", result);
             return "register";
@@ -124,10 +125,11 @@ public class UserControllers {
     public String showEditProfileForm(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         if (username == null) {
-            return "redirect:/login";
+            return "redirect:/user_login";
         }
         User user = userService.getUserByUsername(username);
         model.addAttribute("user", user);
+        model.addAttribute("page", "edit_profile");
         return "edit_profile";  // Refers to edit_profile.html in the templates folder
     }
 
@@ -136,7 +138,7 @@ public class UserControllers {
     public String updateProfile(User user, HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         if (username == null) {
-            return "redirect:/login";
+            return "redirect:/user_login";
         }
         userService.updateUserByUsername(username, user);
         return "redirect:/dashboard";  // Redirect to dashboard after successful update
@@ -147,9 +149,10 @@ public class UserControllers {
     public String showDeleteAccountForm(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         if (username == null) {
-            return "redirect:/login";
+            return "redirect:/user_login";
         }
         model.addAttribute("username", username);
+        model.addAttribute("page", "delete_account");
         return "delete_account";  // Refers to delete_account.html in the templates folder
     }
 
@@ -158,11 +161,11 @@ public class UserControllers {
     public String deleteAccount(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         if (username == null) {
-            return "redirect:/login";
+            return "redirect:/user_login";
         }
         userService.deleteUserByUsername(username);
         session.invalidate();  // Invalidate session
-        return "redirect:/login";  // Redirect to login after account deletion
+        return "redirect:/user_login";  // Redirect to login after account deletion
     }
 
     // Contact GetMapping
@@ -184,12 +187,12 @@ public class UserControllers {
     public String processUsernameChange(@RequestParam("new_username") String newUsername, HttpSession session, Model model) {
         String oldUsername = (String) session.getAttribute("username");
         if (oldUsername == null) {
-            return "redirect:/login";
+            return "redirect:/user_login";
         }
         String result = userService.changeUsername(oldUsername, newUsername);
         if (result.equals("Username changed successfully!")) {
             session.setAttribute("username", newUsername); // Update session with new username
-            return "redirect:/login";
+            return "redirect:/user_login";
         } else {
             model.addAttribute("error", result);
             return "change_username_password";
@@ -201,11 +204,11 @@ public class UserControllers {
     public String processPasswordChange(@RequestParam("old_password") String oldPassword, @RequestParam("new_password") String newPassword, @RequestParam("confirm_password") String confirmPassword, HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         if (username == null) {
-            return "redirect:/login";
+            return "redirect:/user_login";
         }
         String result = userService.changePassword(username, oldPassword, newPassword, confirmPassword);
         if (result.equals("Password changed successfully!")) {
-            return "redirect:/login";
+            return "redirect:/user_login";
         } else {
             model.addAttribute("error", result);
             return "change_username_password";
@@ -215,6 +218,6 @@ public class UserControllers {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();  // Invalidate the session
-        return "redirect:/login";  // Redirect to login page after logout
+        return "redirect:/user_login";  // Redirect to login page after logout
     }
 }

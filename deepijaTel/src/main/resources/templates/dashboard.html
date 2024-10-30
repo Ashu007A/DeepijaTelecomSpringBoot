@@ -5,8 +5,33 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
   <style>
+    .active {
+        color: black;
+        font-weight: bold;
+        background-color: lightgray;
+    }
+    body {
+        background-image: url('/sessions.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    h2, th {
+      color: white;
+      font-weight: 900;
+    }
+    td {
+      font-weight: bold;
+    }
+    table {
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
     #upper {
         padding-top: 40px;
+        color: white;
     }
     .clock {
         height: 65px;
@@ -18,7 +43,7 @@
     h1 {
         font-size: larger;
         float: left;
-        color: #ff9a9e;
+        color: #FFC0FF;
     }
     h2 {
         text-align: center;
@@ -27,11 +52,6 @@
         height: 400px;
         width: 300px;
         object-fit: cover;
-    }
-    .active {
-        color: black;
-        font-weight: bold;
-        background-color: lightgray;
     }
     #exportBtn, #getUserDetailsBtn {
         margin-bottom: 60px;
@@ -158,7 +178,7 @@
       <li><a th:href="@{/logout}" th:classappend="${page == 'logout' ? 'active' : ''}" onclick="confirmLogout(event)">Logout</a></li>
       <li><a th:href="@{/contact}" th:classappend="${page == 'contact' ? 'active' : ''}">Contact</a></li>
       <li><a th:href="@{/delete_account}" th:classappend="${page == 'delete_account' ? 'active' : ''}">Delete Account</a></li>
-      <li><a th:href="@{/change_username_password}" th:classappend="${page == 'change_user_password' ? 'active' : ''}">Change Username/Password</a></li>
+      <li><a th:href="@{/change_username_password}" th:classappend="${page == 'change_username_password' ? 'active' : ''}">Change Username/Password</a></li>
       <li><a th:href="@{/edit_profile}" th:classappend="${page == 'edit_profile' ? 'active' : ''}">Edit Profile</a></li>
       <li><a th:href="@{/dashboard}" th:classappend="${page == 'dashboard' ? 'active' : ''}">Dashboard</a></li>
     </ul>
@@ -178,7 +198,7 @@
 </div>
 <div class="container mt-5 text-center">
   <h2 class="text-center">Daily Time Entry Report</h2>
-  <table class="table table-bordered" id="punchInOutTable">
+  <table class="table table-bordered test" id="punchInOutTable">
     <thead>
     <tr>
       <th width="50%">Punch In</th>
@@ -192,7 +212,7 @@
 </div>
 <div class="container mt-5">
   <h2 class="text-center">User Dashboard</h2>
-  <div class="d-flex justify-content-center align-items-start">
+  <div class="d-flex justify-content-center align-items-start test">
     <!-- Profile Picture Section -->
 <!--    <div class="profile-pic-container mr-5 picture">-->
 <!--      <img th:src="@{'/uploads/profile_pics/' + ${user.username} + '.jpg'}"-->
@@ -205,7 +225,7 @@
 <!--    </div>-->
     <!-- User Data Table Section -->
     <div>
-      <table class="table table-bordered" id="userDashboardTable">
+      <table class="table table-bordered" id="userDashboardTable test">
         <tr>
           <th width="200px">ID</th>
           <td width="400px" th:text="${user.id}"></td>

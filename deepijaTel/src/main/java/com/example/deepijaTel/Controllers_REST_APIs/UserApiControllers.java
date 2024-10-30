@@ -28,7 +28,7 @@ public class UserApiControllers {
     public User getUserDetailsJson(HttpSession session) {
         String username = (String) session.getAttribute("username");
         if (username == null) {
-            return null;  // Handle case where user is not logged in
+            return null;
         }
         return userService.getUserByUsername(username);
     }

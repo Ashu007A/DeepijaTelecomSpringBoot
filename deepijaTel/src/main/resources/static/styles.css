@@ -39,7 +39,7 @@ body {
   }
   nav ul li a:hover {
     background-color: #111;
-    color: #ff9a9e;
+    color: #FFC0FF;
   }
 
   ul {
@@ -52,12 +52,18 @@ body {
   }
 
   a {
-    text-decoration: #ff9a9e;
+    text-decoration: #FFC0FF;
     color: #333;
   }
 
   a:hover {
-    color: #007BFF;
+    color: #FFC0FF;
+  }
+
+  .active {
+    color: black;
+    font-weight: bold;
+    background-color: lightgray;
   }
 
   .heading {
@@ -80,8 +86,8 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px); */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     align-content: center;
   }
 

@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
     <style>
         body {
-            background-image: url('background.jpg');
+            background-image: url('/backgrounds.jpg');
             background-size: cover;
             justify-content: center;
             align-items: center;
@@ -20,7 +20,7 @@
         h1 {
             font-size: larger;
             float: left;
-            color: #ff9a9e;
+            color: #FFC0FF;
         }
         .active {
             color: black;
@@ -41,17 +41,18 @@
 <nav>
     <ul>
         <h1>Deepija Telecom Pvt. Ltd.</h1>
-        <li><a th:href="@{/admin_login}" th:classappend="${page == 'admin_login' ? 'active' : ''}">Admin Login</a></li>
-        <li><a th:href="@{/login}" th:classappend="${page == 'login' ? 'active' : ''}">User Login</a></li>
+        <li><a th:href="@{/admin/login}" th:classappend="${page == 'admin_login' ? 'active' : ''}">Admin Login</a></li>
+        <li><a th:href="@{/user_login}" th:classappend="${page == 'user_login' ? 'active' : ''}">User Login</a></li>
         <li><a th:href="@{/register}" th:classappend="${page == 'register' ? 'active' : ''}">Register New User</a></li>
     </ul>
 </nav>
+
+<h2 style="text-align: center; color: white;">USER LOGIN</h2>
 <!-- Display error message if any -->
 <div th:if="${error}" class="error">
-    <p th:text="${error}"></p>
+    <p style="color: red; text-align: center;" th:text="${error}"></p>
 </div>
-<h2 style="text-align: center; color: white;">USER LOGIN</h2>
-<form th:action="@{/login}" method="post">
+<form th:action="@{/user_login}" method="post">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br><br>
     <label for="password">Password:</label>

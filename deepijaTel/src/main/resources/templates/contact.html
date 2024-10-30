@@ -5,6 +5,12 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
     <style>
+        body {
+            background-image: url('/sessions.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
         .full-height {
             height: 80vh;
         }
@@ -17,7 +23,7 @@
         h1 {
             font-size: larger;
             float: left;
-            color: #ff9a9e;
+            color: #FFC0FF;
         }
         .active {
             color: black;
@@ -46,7 +52,7 @@
             <li><a th:href="@{/logout}" th:classappend="${page == 'logout' ? 'active' : ''}" onclick="confirmLogout(event)">Logout</a></li>
             <li><a th:href="@{/contact}" th:classappend="${page == 'contact' ? 'active' : ''}">Contact</a></li>
             <li><a th:href="@{/delete_account}" th:classappend="${page == 'delete_account' ? 'active' : ''}">Delete Account</a></li>
-            <li><a th:href="@{/change_user_password}" th:classappend="${page == 'change_user_password' ? 'active' : ''}">Change Username/Password</a></li>
+            <li><a th:href="@{/change_username_password}" th:classappend="${page == 'change_username_password' ? 'active' : ''}">Change Username/Password</a></li>
             <li><a th:href="@{/edit_profile}" th:classappend="${page == 'edit_profile' ? 'active' : ''}">Edit Profile</a></li>
             <li><a th:href="@{/dashboard}" th:classappend="${page == 'dashboard' ? 'active' : ''}">Dashboard</a></li>
         </ul>

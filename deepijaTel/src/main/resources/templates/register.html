@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
     <style>
         body {
-            background-image: url('/background.jpg');
+            background-image: url('/backgrounds.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -18,7 +18,7 @@
         h1 {
             font-size: larger;
             float: left;
-            color: #ff9a9e;
+            color: #FFC0FF;
         }
         .active {
             color: black;
@@ -34,8 +34,8 @@
     <nav>
         <ul>
             <h1>Deepija Telecom Pvt. Ltd.</h1>
-            <li><a th:href="@{/admin_login}" th:classappend="${page == 'admin_login' ? 'active' : ''}">Admin Login</a></li>
-            <li><a th:href="@{/login}" th:classappend="${page == 'login' ? 'active' : ''}">User Login</a></li>
+            <li><a th:href="@{/admin/login}" th:classappend="${page == 'admin_login' ? 'active' : ''}">Admin Login</a></li>
+            <li><a th:href="@{/user_login}" th:classappend="${page == 'user_login' ? 'active' : ''}">User Login</a></li>
             <li><a th:href="@{/register}" th:classappend="${page == 'register' ? 'active' : ''}">Register New User</a></li>
         </ul>
     </nav>
