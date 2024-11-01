@@ -10,4 +10,13 @@ public interface AdminServices {
     Admin getAdminByUsername(String username);
 
     List<User> getAllUsers();
+
+    void addUser(User user);
+
+    // Edit User
+    User getUserById(Long id);
+    void updateUser(User user);
+
+    // Delete User
+    String deleteUserById(Long id);
 }

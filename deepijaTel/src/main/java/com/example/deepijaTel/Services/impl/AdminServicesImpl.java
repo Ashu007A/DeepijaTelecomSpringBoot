@@ -7,6 +7,7 @@ import com.example.deepijaTel.Repositories.UserRepository;
 import com.example.deepijaTel.Services.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
@@ -38,5 +39,32 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public void addUser(User user) {
+        // Hash the password before saving
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public String deleteUserById(Long id) {
+        try {
+            userRepository.deleteById(id);
+            return "User deleted successfully!";
+        } catch (Exception e) {
+            return "Error deleting user: " + e.getMessage();
+        }
     }
 }

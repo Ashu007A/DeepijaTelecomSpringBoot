@@ -6,19 +6,11 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Controller
 public class UserControllers {
@@ -101,24 +93,24 @@ public class UserControllers {
     }
 
     // Picture upload
-    @PostMapping("/upload_profile_picture")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("profile_picture") MultipartFile file, @RequestParam("username") String username) {
-        if (file.isEmpty()) {
-            return new ResponseEntity<>("Please select a file to upload", HttpStatus.BAD_REQUEST);
-        }
-        try {
-            // Ensure the directory exists
-            Path uploadDirectory = Paths.get("uploads", "profile_pics");
-            if (!Files.exists(uploadDirectory)) {
-                Files.createDirectories(uploadDirectory);
-            }
-            Path targetFile = uploadDirectory.resolve(username + ".jpg");
-            file.transferTo(targetFile.toFile());
-            return new ResponseEntity<>("You successfully uploaded " + file.getOriginalFilename() + "!", HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity<>("Failed to upload " + file.getOriginalFilename() + " => " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PostMapping("/upload_profile_picture")
+//    public ResponseEntity<String> handleFileUpload(@RequestParam("profile_picture") MultipartFile file, @RequestParam("username") String username) {
+//        if (file.isEmpty()) {
+//            return new ResponseEntity<>("Please select a file to upload", HttpStatus.BAD_REQUEST);
+//        }
+//        try {
+//            // Ensure the directory exists
+//            Path uploadDirectory = Paths.get("uploads", "profile_pics");
+//            if (!Files.exists(uploadDirectory)) {
+//                Files.createDirectories(uploadDirectory);
+//            }
+//            Path targetFile = uploadDirectory.resolve(username + ".jpg");
+//            file.transferTo(targetFile.toFile());
+//            return new ResponseEntity<>("You successfully uploaded " + file.getOriginalFilename() + "!", HttpStatus.OK);
+//        } catch (IOException e) {
+//            return new ResponseEntity<>("Failed to upload " + file.getOriginalFilename() + " => " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     // Add Edit Profile GetMapping
     @GetMapping("/edit_profile")

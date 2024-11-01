@@ -51,9 +51,11 @@
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required><br><br>
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
+    <input type="password" id="password" name="password" required autocomplete="new-password"><br>
+    <div id="passwordStrength"></div><br>
     <label for="repassword">Re-enter Password:</label>
-    <input type="password" id="repassword" name="repassword" required><br><br>
+    <input type="password" id="repassword" name="repassword" required autocomplete="new-password"><br>
+    <div id="passwordMatch"></div><br><br>
     <label for="phone">Phone Number:</label>
     <input type="tel" id="phone" name="phone" required><br><br>
     <label for="state">State:</label>
@@ -87,5 +89,44 @@
     <input type="reset" value="Reset" style="float: left; margin-left: 70px;">
     <input type="submit" value="Register" style="float: right; margin-right: 70px;">
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const passwordField = document.getElementById("password");
+        const repasswordField = document.getElementById("repassword");
+        const strengthDisplay = document.getElementById("passwordStrength");
+        const matchDisplay = document.getElementById("passwordMatch");
+
+        passwordField.addEventListener("input", function() {
+            const strength = getPasswordStrength(passwordField.value);
+            strengthDisplay.textContent = strength.message;
+            strengthDisplay.style.color = strength.color;
+        });
+
+        repasswordField.addEventListener("input", function() {
+            const match = passwordsMatch(passwordField.value, repasswordField.value);
+            matchDisplay.textContent = match.message;
+            matchDisplay.style.color = match.color;
+        });
+
+        function getPasswordStrength(password) {
+            let strength = { message: "Weak", color: "red" };
+            if (password.length >= 8 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /[0-9]/.test(password) && /[!@#\$%\^&\*]/.test(password)) {
+                strength = { message: "Strong", color: "green" };
+            } else if (password.length >= 6 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /[0-9]/.test(password)) {
+                strength = { message: "Moderate", color: "orange" };
+            }
+            return strength;
+        }
+
+        function passwordsMatch(password, repassword) {
+            if (password === repassword) {
+                return { message: "Passwords match", color: "green" };
+            } else {
+                return { message: "Passwords do not match", color: "red" };
+            }
+        }
+    });
+</script>
 </body>
 </html>
