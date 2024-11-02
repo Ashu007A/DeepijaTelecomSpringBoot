@@ -208,8 +208,8 @@
     <tbody>
     <!-- Rows -->
     <tr th:each="entry : ${timeEntries}">
-      <td th:text="${entry.punchIn}">Punch In</td>
-      <td th:text="${entry.punchOut}">Punch Out</td>
+      <td th:text="${#dates.format(entry.punchIn, 'yyyy-MM-dd HH:mm:ss')}">Punch In</td>
+      <td th:text="${#dates.format(entry.punchOut, 'yyyy-MM-dd HH:mm:ss')}">Punch Out</td>
     </tr>
     </tbody>
   </table>
@@ -287,6 +287,17 @@
   <button id="exportBtn" class="btn btn-success">Download CSV</button>
 </div>
 <script>
+  document.addEventListener("DOMContentLoaded", function() {
+        const formatDateTime = (dateTime) => {
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            return new Date(dateTime).toLocaleString('en-GB', options);
+        };
+
+        document.querySelectorAll('td[th\\:text^="formatDate"]').forEach(td => {
+            const text = td.textContent;
+            td.textContent = formatDateTime(text);
+        });
+    });
   document.getElementById("exportBtn").addEventListener("click", function () {
       let csvContent = "data:text/csv;charset=utf-8,";
       let table = document.getElementById("userDashboardTable");

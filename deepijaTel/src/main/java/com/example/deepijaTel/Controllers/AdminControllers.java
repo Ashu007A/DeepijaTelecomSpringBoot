@@ -21,7 +21,7 @@ public class AdminControllers {
     @GetMapping("/login")
     public String showAdminLoginForm(Model model) {
         model.addAttribute("page", "admin_login");
-        return "admin_login";  // Refers to admin_login.html in the templates folder
+        return "admin_login";  // Refers to admin_login_old.html in the templates folder
     }
 
     @PostMapping("/login")
