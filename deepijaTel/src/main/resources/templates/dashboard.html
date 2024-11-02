@@ -207,6 +207,10 @@
     </thead>
     <tbody>
     <!-- Rows -->
+    <tr th:each="entry : ${timeEntries}">
+      <td th:text="${entry.punchIn}">Punch In</td>
+      <td th:text="${entry.punchOut}">Punch Out</td>
+    </tr>
     </tbody>
   </table>
 </div>

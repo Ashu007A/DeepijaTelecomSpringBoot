@@ -1,4 +1,4 @@
-package com.example.deepijaTel.Services.impl;
+package com.example.deepijaTel.Services.Implementations;
 
 import com.example.deepijaTel.Models.TimeEntry;
 import com.example.deepijaTel.Repositories.TimeEntryRepository;
@@ -6,8 +6,11 @@ import com.example.deepijaTel.Services.TimeEntryServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TimeEntryServicesImpl implements TimeEntryServices {
@@ -17,7 +20,18 @@ public class TimeEntryServicesImpl implements TimeEntryServices {
 
     @Override
     public List<TimeEntry> getTimeEntriesByUsername(String username) {
-        return timeEntryRepository.findByUsername(username);
+//        return timeEntryRepository.findByUsername(username);
+        List<TimeEntry> allEntries = timeEntryRepository.findByUsername(username);
+        LocalDate today = LocalDate.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        return allEntries.stream()
+                .filter(entry -> {
+                    LocalDate entryDate = LocalDate.parse(entry.getPunchIn().substring(0, 10), formatter);
+                    return entryDate.equals(today);
+                })
+                .collect(Collectors.toList());
     }
 
     @Override

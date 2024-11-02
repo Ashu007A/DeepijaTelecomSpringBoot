@@ -1,4 +1,4 @@
-package com.example.deepijaTel.Services.impl;
+package com.example.deepijaTel.Services.Implementations;
 
 import com.example.deepijaTel.Models.User;
 import com.example.deepijaTel.Repositories.UserRepository;
