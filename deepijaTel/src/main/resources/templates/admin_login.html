@@ -1,47 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Advanced Call Center Solution for streamlined operations and enhanced customer service.">
-  <meta name="keywords" content="Call Center, Customer Service, CRM, Communication, Automation, Management, Solution">
-  <meta name="author" content="Deepija Telecom Pvt Ltd">
-  <title>ConVox Login</title>
-  <link rel="icon" th:href="@{/favicon_convox.ico}" type="image/x-icon">
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" th:href="@{/styles_convox.css}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Admin Login</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <style>
+        body {
+            background-image: url('/backgrounds.jpg');
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            margin: 150px auto;
+            width: 20%;
+        }
+        h1 {
+            font-size: larger;
+            float: left;
+            color: #FFC0FF;
+        }
+        .active {
+            color: black;
+            font-weight: bold;
+            background-color: lightgray;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="login-container">
-  <img th:src="@{/logo_convox.png}" alt="ConVox Logo"><br>
-  <form th:action="@{/admin/login}" method="post">
-    <div class="input-group">
-      <label for="username" class="form-label"><i class="fas fa-user"></i></label>
-      <input type="text" id="username" name="username" placeholder="Your User Name" required>
-    </div>
-    <div class="input-group">
-      <label for="password" class="form-label"><i class="fas fa-lock"></i></label>
-      <input type="password" id="password" name="password" placeholder="Password" required>
-      <span class="input-group-text" id="togglePassword">
-        <i class="fas fa-eye" id="togglePasswordIcon"></i>
-      </span>
-    </div>
-    <button type="submit">Login</button>
-  </form>
+<nav>
+    <ul>
+        <h1>Deepija Telecom Pvt. Ltd.</h1>
+        <li><a th:href="@{/admin/login}" th:classappend="${page == 'admin_login' ? 'active' : ''}">Admin Login</a></li>
+        <li><a th:href="@{/user_login}" th:classappend="${page == 'user_login' ? 'active' : ''}">User Login</a></li>
+        <li><a th:href="@{/register}" th:classappend="${page == 'register' ? 'active' : ''}">Register New User</a></li>
+        <li><a th:href="@{/convox/login}" th:classappend="${page == 'convox' ? 'active' : ''}">ConVox</a></li>
+    </ul>
+</nav>
+
+<h2 style="text-align: center; color: white;">ADMIN LOGIN</h2>
+<!-- Display error message if any -->
+<div th:if="${error}" class="error">
+    <p style="color: red; text-align: center;" th:text="${error}"></p>
 </div>
-<div class="footer">
-  Powered by Deepija Telecom Pvt Ltd &copy; 2023 All Rights Reserved.
-</div>
-<script>
-  document.getElementById('togglePassword').addEventListener('click', function () {
-      const passwordField = document.getElementById('password');
-      const passwordIcon = document.getElementById('togglePasswordIcon');
-      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordField.setAttribute('type', type);
-      passwordIcon.classList.toggle('fa-eye-slash');
-  });
-</script>
+<form th:action="@{/admin/login}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <input type="submit" value="Submit" style="margin-left:35%;">
+</form>
 </body>
 </html>

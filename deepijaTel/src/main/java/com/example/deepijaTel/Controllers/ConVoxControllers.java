@@ -1,52 +1,78 @@
 package com.example.deepijaTel.Controllers;
 
-import com.example.deepijaTel.Models.Admin;
-import com.example.deepijaTel.Models.User;
-import com.example.deepijaTel.Services.AdminServices;
-import jakarta.servlet.http.HttpSession;
+import com.example.deepijaTel.Models.ConVoxLogin;
+import com.example.deepijaTel.Services.ConVoxServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/convox")
+@SessionAttributes("username")
 public class ConVoxControllers {
 
+    private static final Logger logger = LoggerFactory.getLogger(ConVoxControllers.class);
+
     @Autowired
-    private AdminServices adminServices;
+    private ConVoxServices convoxServices;
 
     @GetMapping("/login")
     public String showAdminLoginForm(Model model) {
-        model.addAttribute("page", "index");
-        return "index";  // Refers to admin_login_old.html in the templates folder
+        model.addAttribute("page", "convox_login");
+        return "convox_login";
     }
 
     @PostMapping("/login")
-    public String processAdminLogin(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
-        String result = adminServices.authenticateAdmin(username, password);
-        if (result.equals("Login successful!")) {
-            session.setAttribute("admin_username", username);
-            Admin admin = adminServices.getAdminByUsername(username);
-            session.setAttribute("admin_id", admin.getId());
-            return "redirect:/admin/dashboard";  // Redirect to admin dashboard
+    public String login(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        Model model) {
+        logger.info("Attempting to log in with username: {}", username);
+        ConVoxLogin user = convoxServices.findByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            logger.info("Login successful for username: {}", username);
+            model.addAttribute("username", username);
+            return "redirect:/convox/dashboard";
         } else {
-            model.addAttribute("error", result);
-            return "admin_login";  // Redirect back to login page with error
+            logger.warn("Login failed for username: {}", username);
+            model.addAttribute("error", "Invalid username or password! ");
+            return "convox_login";
         }
     }
 
+    @PostMapping("/register")
+    public String register(@RequestParam("username") String username,
+                           @RequestParam("password") String password,
+                           Model model) {
+        logger.info("Registering new user with username: {}", username);
+        ConVoxLogin newUser = new ConVoxLogin();
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        convoxServices.saveUser(newUser);
+        return "redirect:/convox/login";
+    }
+
     @GetMapping("/dashboard")
-    public String showAdminDashboard(Model model, HttpSession session) {
-        String adminUsername = (String) session.getAttribute("admin_username");
-        if (adminUsername == null) {
-            return "redirect:/admin/login";
+    public String showDashboard(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return "redirect:/convox/login";
         }
-        List<User> users = adminServices.getAllUsers();
-        model.addAttribute("users", users);
-        model.addAttribute("page", "admin_dashboard");
-        return "admin_dashboard";  // Refers to admin_dashboard.html in the templates folder
+        model.addAttribute("username", username);
+        return "convox_dashboard";
+    }
+
+    @GetMapping("/logout")
+    public String logout(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
+        return "redirect:/convox/login";
     }
 }

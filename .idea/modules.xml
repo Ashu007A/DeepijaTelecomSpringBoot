@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/deepijaTel.iml" filepath="$PROJECT_DIR$/.idea/deepijaTel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/deepijaTel/deepijaTel.iml" filepath="$PROJECT_DIR$/deepijaTel/deepijaTel.iml" />
     </modules>
   </component>
 </project>

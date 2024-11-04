@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Advanced Call Center Solution for streamlined operations and enhanced customer service.">
+  <meta name="keywords" content="Call Center, Customer Service, CRM, Communication, Automation, Management, Solution">
+  <meta name="author" content="Deepija Telecom Pvt Ltd">
+  <title>ConVox Dashboard</title>
+  <link rel="icon" th:href="@{/favicon_convox.ico}" type="image/x-icon">
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<!--  <link rel="stylesheet" th:href="@{/styles_convox.css}">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+        display: flex;
+        height: auto;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .toggle-btn {
+        position: absolute;
+        top: 2px;
+        left: 6px;
+        font-size: 24px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .sidebar {
+        width: 300px;
+        background-color: #c7e5ff;
+        padding-top: 30px;
+        transition: width 0.3s;
+        <!--background-color: #333;-->
+        <!--color: white;-->
+    }
+    .sidebar .menu-section h3 span {
+        display: inline;
+    }
+
+    .sidebar.collapsed .menu-section h3 span {
+        display: none;
+    }
+    .sidebar.collapsed {
+        width: 60px;
+    }
+    .sidebar.collapsed .menu-section a span {
+        display: none;
+    }
+    .sidebar .menu-section a {
+        display: flex;
+        align-items: center;
+    }
+    .sidebar .menu-section a i {
+        min-width: 30px;
+        text-align: center;
+    }
+    .sidebar a {
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #3e4a54;
+<!--        color: white;-->
+        display: block;
+        transition: 0.3s;
+    }
+    .sidebar a:hover {
+        background-color: #7ac0fa;
+<!--        background-color: #575757;-->
+    }
+
+    .menu-section .menu-links {
+        display: none;
+    }
+
+    .menu-section h3 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        margin-top: 30px;
+    }
+    .menu-section .toggle-icon {
+        margin-left: auto;
+    }
+    .toggle-icon {
+        margin-right: 10px;
+    }
+    .font-icon {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        background: linear-gradient(160deg, #f0f8ff 20%, #d7a5a570 40%, #a1c2d3c7 80%, #e6f2ff 100%);
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+        position: relative;
+    }
+    .header img {
+        width: auto;
+        height: 70px;
+    }
+    .server-time {
+        font-size: 18px;
+        color: #333;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+    }
+    .server-time i {
+        margin-right: 5px;
+    }
+    .logout-button {
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        margin-right: 30px;
+        background: red;
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background-color: #e0e0e0;
+        color: #000;
+    }
+  </style>
+</head>
+<body>
+<div class="sidebar" id="sidebar">
+  <a href="javascript:void(0)" class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></a>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-chart-line font-icon"></i>
+      <span> Live Status</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Process Status" onclick="postURL('?user_sel_menu=Process Status', 'false'); return false;">
+        <i class="fas fa-cogs"></i> <span>Process Status</span>
+      </a>
+      <a href="?user_sel_menu=Trunk Status" onclick="postURL('?user_sel_menu=Trunk Status', 'false'); return false;">
+        <i class="fas fa-network-wired"></i> <span>Trunk Status</span>
+      </a>
+      <a href="?user_sel_menu=Queues Status" onclick="postURL('?user_sel_menu=Queues Status', 'false'); return false;">
+        <i class="fas fa-stream"></i> <span>Queues Status</span>
+      </a>
+      <a href="RealTimeDashBoard/" target="_blank">
+        <i class="fas fa-chart-line"></i> <span>Dash Board</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-tools font-icon"></i>
+      <span> Debug Tools</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=ConVox Web Panel" onclick="postURL('?user_sel_menu=ConVox Web Panel', 'false'); return false;">
+        <i class="fas fa-tools"></i> <span>ConVox Web Panel</span>
+      </a>
+      <a href="?user_sel_menu=Database Status" onclick="postURL('?user_sel_menu=Database Status', 'false'); return false;">
+        <i class="fas fa-database"></i> <span>Database Status</span>
+      </a>
+      <a href="?user_sel_menu=ConVox Screens" onclick="postURL('?user_sel_menu=ConVox Screens', 'false'); return false;">
+        <i class="fas fa-tv"></i> <span>ConVox Screens</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-cogs font-icon"></i>
+      <span> System Config</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Servers" onclick="postURL('?user_sel_menu=Servers', 'false'); return false;">
+        <i class="fas fa-server"></i> <span>Servers</span>
+      </a>
+      <a href="?user_sel_menu=Web Servers" onclick="postURL('?user_sel_menu=Web Servers', 'false'); return false;">
+        <i class="fas fa-globe"></i> <span>Web Servers</span>
+      </a>
+      <a href="?user_sel_menu=Stations" onclick="postURL('?user_sel_menu=Stations', 'false'); return false;">
+        <i class="fas fa-network-wired"></i> <span>Stations</span>
+      </a>
+      <a href="?user_sel_menu=Internal Stations" onclick="postURL('?user_sel_menu=Internal Stations', 'false'); return false;">
+        <i class="fas fa-sitemap"></i> <span>Internal Stations</span>
+      </a>
+      <a href="?user_sel_menu=Lock Out Release" onclick="postURL('?user_sel_menu=Lock Out Release', 'false'); return false;">
+        <i class="fas fa-unlock-alt"></i> <span>Lock Out Release</span>
+      </a>
+      <a href="?user_sel_menu=Lockout Settings" onclick="postURL('?user_sel_menu=Lockout Settings', 'false'); return false;">
+        <i class="fas fa-cog"></i> <span>Lockout Settings</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-route font-icon"></i>
+      <span> Call Routing</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Inbound Routes" onclick="postURL('?user_sel_menu=Inbound Routes', 'false'); return false;">
+        <i class="fas fa-sign-in-alt"></i> <span>Inbound Routes</span>
+      </a>
+      <a href="?user_sel_menu=Outbound Trunks" onclick="postURL('?user_sel_menu=Outbound Trunks', 'false'); return false;">
+        <i class="fas fa-sign-out-alt"></i> <span>Outbound Trunks</span>
+      </a>
+      <a href="?user_sel_menu=Outbound Routes" onclick="postURL('?user_sel_menu=Outbound Routes', 'false'); return false;">
+        <i class="fas fa-route"></i> <span>Outbound Routes</span>
+      </a>
+      <a href="?user_sel_menu=Callforward Routes" onclick="postURL('?user_sel_menu=Callforward Routes', 'false'); return false;">
+        <i class="fas fa-forward"></i> <span>Callforward Routes</span>
+      </a>
+      <a href="?user_sel_menu=Hot Transfer Routes" onclick="postURL('?user_sel_menu=Hot Transfer Routes', 'false'); return false;">
+        <i class="fas fa-random"></i> <span>Hot Transfer Routes</span>
+      </a>
+      <a href="?user_sel_menu=Service Providers" onclick="postURL('?user_sel_menu=Service Providers', 'false'); return false;">
+        <i class="fas fa-concierge-bell"></i> <span>Service Providers</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-stream font-icon"></i>
+      <span> ACD and Queue</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Users" onclick="postURL('?user_sel_menu=Users', 'false'); return false;">
+        <i class="fas fa-users"></i> <span>Users</span>
+      </a>
+      <a href="?user_sel_menu=Process" onclick="postURL('?user_sel_menu=Process', 'false'); return false;">
+        <i class="fas fa-tasks"></i> <span>Process</span>
+      </a>
+      <a href="?user_sel_menu=Queues" onclick="postURL('?user_sel_menu=Queues', 'false'); return false;">
+        <i class="fas fa-stream"></i> <span>Queues</span>
+      </a>
+      <a href="?user_sel_menu=Breaks" onclick="postURL('?user_sel_menu=Breaks', 'false'); return false;">
+        <i class="fas fa-coffee"></i> <span>Breaks</span>
+      </a>
+      <a href="?user_sel_menu=Dispositions" onclick="postURL('?user_sel_menu=Dispositions', 'false'); return false;">
+        <i class="fas fa-clipboard-list"></i> <span>Dispositions</span>
+      </a>
+      <a href="?user_sel_menu=Sub Disposition" onclick="postURL('?user_sel_menu=Sub Disposition', 'false'); return false;">
+        <i class="fas fa-clipboard-check"></i> <span>Sub Disposition</span>
+      </a>
+      <a href="?user_sel_menu=Sub-Sub Disposition" onclick="postURL('?user_sel_menu=Sub-Sub Disposition', 'false'); return false;">
+        <i class="fas fa-clipboard"></i> <span>Sub-Sub Disposition</span>
+      </a>
+      <a href="?user_sel_menu=Lead Re-Attempts" onclick="postURL('?user_sel_menu=Lead Re-Attempts', 'false'); return false;">
+        <i class="fas fa-redo-alt"></i> <span>Lead Re-Attempts</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-address-book font-icon"></i>
+      <span> CRM</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=CRM" onclick="postURL('?user_sel_menu=CRM', 'false'); return false;">
+        <i class="fas fa-address-book"></i> <span>CRM</span>
+      </a>
+      <a href="?user_sel_menu=Lists" onclick="postURL('?user_sel_menu=Lists', 'false'); return false;">
+        <i class="fas fa-list"></i> <span>Lists</span>
+      </a>
+      <a href="?user_sel_menu=Callback Assignments" onclick="postURL('?user_sel_menu=Callback Assignments', 'false'); return false;">
+        <i class="fas fa-phone-alt"></i> <span>Callback Assignments</span>
+      </a>
+      <a href="?user_sel_menu=Scripts" onclick="postURL('?user_sel_menu=Scripts', 'false'); return false;">
+        <i class="fas fa-file-alt"></i> <span>Scripts</span>
+      </a>
+      <a href="?user_sel_menu=Block Caller" onclick="postURL('?user_sel_menu=Block Caller', 'false'); return false;">
+        <i class="fas fa-ban"></i> <span>Block Caller</span>
+      </a>
+      <a href="?user_sel_menu=Custom Missed Settings" onclick="postURL('?user_sel_menu=Custom Missed Settings', 'false'); return false;">
+        <i class="fas fa-cogs"></i> <span>Custom Missed Settings</span>
+      </a>
+      <a href="?user_sel_menu=Auto Email Settings" onclick="postURL('?user_sel_menu=Auto Email Settings', 'false'); return false;">
+        <i class="fas fa-envelope"></i> <span>Auto Email Settings</span>
+      </a>
+      <a href="?user_sel_menu=IvrCallback Lead Settings" onclick="postURL('?user_sel_menu=IvrCallback Lead Settings', 'false'); return false;">
+        <i class="fas fa-headset"></i> <span>IvrCallback Lead Settings</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-voicemail font-icon"></i>
+      <span> IVR</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Audio Files" onclick="postURL('?user_sel_menu=Audio Files', 'false'); return false;">
+        <i class="fas fa-music"></i> <span>Audio Files</span>
+      </a>
+      <a href="?user_sel_menu=Recording Studio" onclick="postURL('?user_sel_menu=Recording Studio', 'false'); return false;">
+        <i class="fas fa-microphone"></i> <span>Recording Studio</span>
+      </a>
+      <a href="?user_sel_menu=IVRS" onclick="postURL('?user_sel_menu=IVRS', 'false'); return false;">
+        <i class="fas fa-voicemail"></i> <span>IVRS</span>
+      </a>
+      <a href="?user_sel_menu=Customer Feedback" onclick="postURL('?user_sel_menu=Customer Feedback', 'false'); return false;">
+        <i class="fas fa-comments"></i> <span>Customer Feedback</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-comments font-icon"></i>
+      <span> WhatsApp</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="https://h248.deepijatel.in/ConVoxCMC/Internal/login_sso?agent_id=admin&password=admin" target="_blank">
+        <i class="fas fa-comments"></i> <span>WhatsApp Admin</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-star font-icon"></i>
+      <span> Quality Module</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=QualityModule" onclick="postURL('?user_sel_menu=QualityModule', 'false'); return false;">
+        <i class="fas fa-star"></i> <span>Quality Module</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-user-check font-icon"></i>
+      <span> Agent Analysis</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Agent Login Report" onclick="postURL('?user_sel_menu=Agent Login Report', 'false'); return false;">
+        <i class="fas fa-sign-in-alt"></i> <span>Agent Login Report</span>
+      </a>
+      <a href="?user_sel_menu=Agent Performance Report" onclick="postURL('?user_sel_menu=Agent Performance Report', 'false'); return false;">
+        <i class="fas fa-chart-line"></i> <span>Agent Performance Report</span>
+      </a>
+      <a href="?user_sel_menu=Agent Disposition Report" onclick="postURL('?user_sel_menu=Agent Disposition Report', 'false'); return false;">
+        <i class="fas fa-user-tag"></i> <span>Agent Disposition Report</span>
+      </a>
+      <a href="?user_sel_menu=Queue Performance Report" onclick="postURL('?user_sel_menu=Queue Performance Report', 'false'); return false;">
+        <i class="fas fa-tasks"></i> <span>Queue Performance Report</span>
+      </a>
+      <a href="?user_sel_menu=Leads Summary Report" onclick="postURL('?user_sel_menu=Leads Summary Report', 'false'); return false;">
+        <i class="fas fa-list-ul"></i> <span>Leads Summary Report</span>
+      </a>
+      <a href="?user_sel_menu=Agent Lockout Report" onclick="postURL('?user_sel_menu=Agent Lockout Report', 'false'); return false;">
+        <i class="fas fa-lock"></i> <span>Agent Lockout Report</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-chart-pie font-icon"></i>
+      <span> Process Analysis</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Process Report" onclick="postURL('?user_sel_menu=Process Report', 'false'); return false;">
+        <i class="fas fa-chart-pie"></i> <span>Process Report</span>
+      </a>
+      <a href="?user_sel_menu=Predictive Outbound Report" onclick="postURL('?user_sel_menu=Predictive Outbound Report', 'false'); return false;">
+        <i class="fas fa-chart-bar"></i> <span>Predictive Outbound Report</span>
+      </a>
+      <a href="?user_sel_menu=Preview Outbound Report" onclick="postURL('?user_sel_menu=Preview Outbound Report', 'false'); return false;">
+        <i class="fas fa-chart-area"></i> <span>Preview Outbound Report</span>
+      </a>
+      <a href="?user_sel_menu=Progressive Outbound Report" onclick="postURL('?user_sel_menu=Progressive Outbound Report', 'false'); return false;">
+        <i class="fas fa-chart-line"></i> <span>Progressive Outbound Report</span>
+      </a>
+      <a href="?user_sel_menu=Call Recording Report" onclick="postURL('?user_sel_menu=Call Recording Report', 'false'); return false;">
+        <i class="fas fa-microphone-alt"></i> <span>Call Recording Report</span>
+      </a>
+      <a href="?user_sel_menu=DNC Report" onclick="postURL('?user_sel_menu=DNC Report', 'false'); return false;">
+        <i class="fas fa-ban"></i> <span>DNC Report</span>
+      </a>
+      <a href="?user_sel_menu=CDR Report" onclick="postURL('?user_sel_menu=CDR Report', 'false'); return false;">
+        <i class="fas fa-file-alt"></i> <span>CDR Report</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-phone font-icon"></i>
+      <span> Call Traffic Analysis</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Call Hits" onclick="postURL('?user_sel_menu=Call Hits', 'false'); return false;">
+        <i class="fas fa-phone"></i> <span>Call Hits</span>
+      </a>
+      <a href="?user_sel_menu=FollowUp Report" onclick="postURL('?user_sel_menu=FollowUp Report', 'false'); return false;">
+        <i class="fas fa-file-alt"></i> <span>FollowUp Report</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu-section">
+    <h3 onclick="toggleSection(this)">
+      <i class="fas fa-users font-icon"></i>
+      <span> Conference Analysis</span>
+      <i class="fa-solid fa-caret-right toggle-icon"></i>
+    </h3>
+    <div class="menu-links">
+      <a href="?user_sel_menu=Conference Report" onclick="postURL('?user_sel_menu=Conference Report', 'false'); return false;">
+        <i class="fas fa-users"></i> <span>Conference Report</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="header">
+    <img th:src="@{/logo_convox_dashboard.png}" alt="Convox Logo Dashboard" style='background-color: transparent; border-collapse: collapse; border: 0px; margin-left: 30px; object-fit: contain;' width="100%" height="70px">
+    <div class="server-time">
+      <i class="fa-regular fa-clock"></i>
+      <span id="server-time-text"></span>
+    </div>
+    <a href="/convox/logout" class="logout-button" onclick="confirmLogout(event)">Logout</a>
+  </div>
+</div>
+
+<script>
+  function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("collapsed");
+      if (sidebar.style.width === "60px") {
+          sidebar.style.width = "250px";
+      } else {
+          sidebar.style.width = "60px";
+      }
+  }
+
+  function toggleSection(element) {
+      const section = element.nextElementSibling;
+      const toggleIcon = element.querySelector('.toggle-icon');
+
+      if (section.style.display === "block") {
+          section.style.display = "none";
+          toggleIcon.classList.remove('fa-caret-down');
+          toggleIcon.classList.add('fa-caret-right');
+      } else {
+          section.style.display = "block";
+          toggleIcon.classList.remove('fa-caret-right');
+          toggleIcon.classList.add('fa-caret-down');
+      }
+  }
+
+  function updateTime() {
+        const now = new Date();
+        const formattedTime = now.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }) + ' ' + now.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        document.getElementById('server-time-text').textContent = 'Server time - ' + formattedTime;
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+
+  function confirmLogout(event) {
+        event.preventDefault();
+        var userConfirmed = confirm("Are you sure you want to log out?");
+        if (userConfirmed) {
+            window.location.href = event.target.href;
+        }
+    }
+</script>
+</body>
+</html>

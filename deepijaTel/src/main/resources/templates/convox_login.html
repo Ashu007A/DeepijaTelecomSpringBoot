@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Advanced Call Center Solution for streamlined operations and enhanced customer service.">
+  <meta name="keywords" content="Call Center, Customer Service, CRM, Communication, Automation, Management, Solution">
+  <meta name="author" content="Deepija Telecom Pvt Ltd">
+  <title>ConVox Login</title>
+  <link rel="icon" th:href="@{/favicon_convox.ico}" type="image/x-icon">
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" th:href="@{/styles_convox.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div th:if="${error}" class="error">
+  <p style="color: red; text-align: center;" th:text="${error}"></p>
+</div>
+<div class="login-container">
+  <img th:src="@{/logo_convox.png}" alt="ConVox Logo"><br>
+  <form th:action="@{/convox/login}" method="post">
+    <div class="input-group">
+      <label for="username" class="form-label"><i class="fas fa-user"></i></label>
+      <input type="text" id="username" name="username" placeholder="Your User Name" required>
+    </div>
+    <div class="input-group">
+      <label for="password" class="form-label"><i class="fas fa-lock"></i></label>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <span class="input-group-text" id="togglePassword">
+        <i class="fas fa-eye" id="togglePasswordIcon"></i>
+      </span>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</div>
+<div class="footer">
+  Powered by Deepija Telecom Pvt Ltd &copy; 2023 All Rights Reserved.
+</div>
+<script>
+  document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordField = document.getElementById('password');
+      const passwordIcon = document.getElementById('togglePasswordIcon');
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+      passwordIcon.classList.toggle('fa-eye-slash');
+  });
+</script>
+</body>
+</html>
