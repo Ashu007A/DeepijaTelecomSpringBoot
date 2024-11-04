@@ -8,9 +8,9 @@
   <meta name="keywords" content="Call Center, Customer Service, CRM, Communication, Automation, Management, Solution">
   <meta name="author" content="Deepija Telecom Pvt Ltd">
   <title>ConVox Login</title>
-  <link rel="icon" th:href="@{/favicon_convox.ico}" type="image/x-icon">
+  <link rel="icon" th:href="@{/ConVox/favicon_convox.ico}" type="image/x-icon">
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" th:href="@{/styles_convox.css}">
+  <link rel="stylesheet" th:href="@{/ConVox/styles_convox_login.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
   <p style="color: red; text-align: center;" th:text="${error}"></p>
 </div>
 <div class="login-container">
-  <img th:src="@{/logo_convox.png}" alt="ConVox Logo"><br>
+  <img th:src="@{/ConVox/logo_convox_login.png}" alt="ConVox Logo"><br>
   <form th:action="@{/convox/login}" method="post">
     <div class="input-group">
       <label for="username" class="form-label"><i class="fas fa-user"></i></label>

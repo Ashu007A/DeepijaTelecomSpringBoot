@@ -10,137 +10,9 @@
   <title>ConVox Dashboard</title>
   <link rel="icon" th:href="@{/favicon_convox.ico}" type="image/x-icon">
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<!--  <link rel="stylesheet" th:href="@{/styles_convox.css}">-->
+  <link rel="stylesheet" th:href="@{/ConVox/styles_convox_dashboard.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    body {
-        display: flex;
-        height: auto;
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
-
-    .toggle-btn {
-        position: absolute;
-        top: 2px;
-        left: 6px;
-        font-size: 24px;
-        cursor: pointer;
-        color: white;
-    }
-
-    .sidebar {
-        width: 300px;
-        background-color: #c7e5ff;
-        padding-top: 30px;
-        transition: width 0.3s;
-        <!--background-color: #333;-->
-        <!--color: white;-->
-    }
-    .sidebar .menu-section h3 span {
-        display: inline;
-    }
-
-    .sidebar.collapsed .menu-section h3 span {
-        display: none;
-    }
-    .sidebar.collapsed {
-        width: 60px;
-    }
-    .sidebar.collapsed .menu-section a span {
-        display: none;
-    }
-    .sidebar .menu-section a {
-        display: flex;
-        align-items: center;
-    }
-    .sidebar .menu-section a i {
-        min-width: 30px;
-        text-align: center;
-    }
-    .sidebar a {
-        padding: 10px 15px;
-        text-decoration: none;
-        color: #3e4a54;
-<!--        color: white;-->
-        display: block;
-        transition: 0.3s;
-    }
-    .sidebar a:hover {
-        background-color: #7ac0fa;
-<!--        background-color: #575757;-->
-    }
-
-    .menu-section .menu-links {
-        display: none;
-    }
-
-    .menu-section h3 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        margin-top: 30px;
-    }
-    .menu-section .toggle-icon {
-        margin-left: auto;
-    }
-    .toggle-icon {
-        margin-right: 10px;
-    }
-    .font-icon {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-
-    .main-content {
-        flex-grow: 1;
-        padding: 20px;
-        background: linear-gradient(160deg, #f0f8ff 20%, #d7a5a570 40%, #a1c2d3c7 80%, #e6f2ff 100%);
-    }
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        padding: 10px;
-        position: relative;
-    }
-    .header img {
-        width: auto;
-        height: 70px;
-    }
-    .server-time {
-        font-size: 18px;
-        color: #333;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        align-items: center;
-    }
-    .server-time i {
-        margin-right: 5px;
-    }
-    .logout-button {
-        font-size: 18px;
-        color: white;
-        text-decoration: none;
-        margin-right: 30px;
-        background: red;
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        border-radius: 20px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .logout-button:hover {
-        background-color: #e0e0e0;
-        color: #000;
-    }
-  </style>
+  <script src="/ConVox/script_convox_dashboard.js" defer></script>
 </head>
 <body>
 <div class="sidebar" id="sidebar">
@@ -437,7 +309,7 @@
 
 <div class="main-content">
   <div class="header">
-    <img th:src="@{/logo_convox_dashboard.png}" alt="Convox Logo Dashboard" style='background-color: transparent; border-collapse: collapse; border: 0px; margin-left: 30px; object-fit: contain;' width="100%" height="70px">
+    <img th:src="@{/ConVox/logo_convox_dashboard.png}" alt="Convox Logo Dashboard" style='background-color: transparent; border-collapse: collapse; border: 0px; margin-left: 30px; object-fit: contain;' width="100%" height="70px">
     <div class="server-time">
       <i class="fa-regular fa-clock"></i>
       <span id="server-time-text"></span>
@@ -446,55 +318,8 @@
   </div>
 </div>
 
-<script>
-  function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("collapsed");
-      if (sidebar.style.width === "60px") {
-          sidebar.style.width = "250px";
-      } else {
-          sidebar.style.width = "60px";
-      }
-  }
-
-  function toggleSection(element) {
-      const section = element.nextElementSibling;
-      const toggleIcon = element.querySelector('.toggle-icon');
-
-      if (section.style.display === "block") {
-          section.style.display = "none";
-          toggleIcon.classList.remove('fa-caret-down');
-          toggleIcon.classList.add('fa-caret-right');
-      } else {
-          section.style.display = "block";
-          toggleIcon.classList.remove('fa-caret-right');
-          toggleIcon.classList.add('fa-caret-down');
-      }
-  }
-
-  function updateTime() {
-        const now = new Date();
-        const formattedTime = now.toLocaleDateString('en-GB', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        }) + ' ' + now.toLocaleTimeString('en-GB', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        });
-        document.getElementById('server-time-text').textContent = 'Server time - ' + formattedTime;
-  }
-  setInterval(updateTime, 1000);
-  updateTime();
-
-  function confirmLogout(event) {
-        event.preventDefault();
-        var userConfirmed = confirm("Are you sure you want to log out?");
-        if (userConfirmed) {
-            window.location.href = event.target.href;
-        }
-    }
-</script>
+<div class="footer">
+  Powered by Deepija Telecom Pvt Ltd &copy; 2023 All Rights Reserved.
+</div>
 </body>
 </html>
