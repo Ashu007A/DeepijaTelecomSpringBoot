@@ -45,4 +45,35 @@
         if (userConfirmed) {
             window.location.href = event.target.href;
         }
-   }
+  }
+
+
+
+
+
+//  document.addEventListener("DOMContentLoaded", function() {
+//    var dropdowns = document.querySelectorAll("#menu .drop");
+//
+//    dropdowns.forEach(function(dropdown) {
+//      dropdown.addEventListener("click", function(event) {
+//        event.preventDefault();
+//        var dropdownMenu = this.nextElementSibling;
+//
+//        if (dropdownMenu.style.display === "block") {
+//          dropdownMenu.style.display = "none";
+//        } else {
+//          dropdownMenu.style.display = "block";
+//        }
+//      });
+//    });
+//
+//    window.addEventListener("click", function(event) {
+//      if (!event.target.matches("#menu .drop")) {
+//        var dropdownMenus = document.querySelectorAll("#menu .dropdown_2columns, #menu .dropdown_5columns, #menu .dropdown_7columns");
+//
+//        dropdownMenus.forEach(function(menu) {
+//          menu.style.display = "none";
+//        });
+//      }
+//    });
+//  });

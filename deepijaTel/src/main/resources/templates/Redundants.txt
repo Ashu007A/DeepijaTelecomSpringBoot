@@ -1,0 +1,241 @@
+<!--    <ul id="menu">-->
+<!--        <li id="home_li">-->
+<!--            <a href="?user_sel_menu=home" onclick='return postURL("?user_sel_menu=home","false"),!1'>-->
+<!--                <i class="fas fa-home"></i> Home-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li id="monitoring_li" style="top:-2px"><a class="drop"> <b><i class="fas fa-tools"></i>&nbsp;Monitoring-->
+<!--            Tools</b> </a>-->
+<!--            <div class="dropdown_2columns">-->
+<!--                <div class="col_1"><h3>Live Status</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Process Status"-->
+<!--                               onclick='return postURL("?user_sel_menu=Process Status","false"),!1'><i-->
+<!--                                class="fas fa-cogs"></i> Process Status</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Trunk Status"-->
+<!--                               onclick='return postURL("?user_sel_menu=Trunk Status","false"),!1'><i-->
+<!--                                class="fas fa-network-wired"></i> Trunk Status</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Queues Status"-->
+<!--                               onclick='return postURL("?user_sel_menu=Queues Status","false"),!1'><i-->
+<!--                                class="fas fa-stream"></i> Queues Status</a></li>-->
+<!--                        <li><a href="RealTimeDashBoard/" target="_blank"><i class="fas fa-chart-line"></i> Dash-->
+<!--                            Board</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1"><h3>Debug Tools</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=ConVox Web Panel"-->
+<!--                               onclick='return postURL("?user_sel_menu=ConVox Web Panel","false"),!1'><i-->
+<!--                                class="fas fa-tools"></i> ConVox Web Panel</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Database Status"-->
+<!--                               onclick='return postURL("?user_sel_menu=Database Status","false"),!1'><i-->
+<!--                                class="fas fa-database"></i> Database Status</a></li>-->
+<!--                        <li><a href="?user_sel_menu=ConVox Screens"-->
+<!--                               onclick='return postURL("?user_sel_menu=ConVox Screens","false"),!1'><i-->
+<!--                                class="fas fa-tv"></i> ConVox Screens</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li id="system_li" style="top:-2px"><a class="drop"> <b><i class="fas fa-cogs"></i>&nbsp;System Settings</b>-->
+<!--        </a>-->
+<!--            <div class="dropdown_7columns">-->
+<!--                <div class="col_1"><h3>System Config</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Servers"-->
+<!--                               onclick='return postURL("?user_sel_menu=Servers","false"),!1'><i-->
+<!--                                class="fas fa-server"></i> Servers</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Web Servers"-->
+<!--                               onclick='return postURL("?user_sel_menu=Web Servers","false"),!1'><i-->
+<!--                                class="fas fa-globe"></i> Web Servers</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Stations"-->
+<!--                               onclick='return postURL("?user_sel_menu=Stations","false"),!1'><i-->
+<!--                                class="fas fa-network-wired"></i> Stations</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Internal Stations"-->
+<!--                               onclick='return postURL("?user_sel_menu=Internal Stations","false"),!1'><i-->
+<!--                                class="fas fa-sitemap"></i> Internal Stations</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Lock Out Release"-->
+<!--                               onclick='return postURL("?user_sel_menu=Lock Out Release","false"),!1'><i-->
+<!--                                class="fas fa-unlock-alt"></i> Lock Out Release</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Lockout Settings"-->
+<!--                               onclick='return postURL("?user_sel_menu=Lockout Settings","false"),!1'><i-->
+<!--                                class="fas fa-cog"></i> Lockout Settings</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1"><h3>Call Routing</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Inbound Routes"-->
+<!--                               onclick='return postURL("?user_sel_menu=Inbound Routes","false"),!1'><i-->
+<!--                                class="fas fa-sign-in-alt"></i> Inbound Routes</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Outbound Trunks"-->
+<!--                               onclick='return postURL("?user_sel_menu=Outbound Trunks","false"),!1'><i-->
+<!--                                class="fas fa-sign-out-alt"></i> Outbound Trunks</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Outbound Routes"-->
+<!--                               onclick='return postURL("?user_sel_menu=Outbound Routes","false"),!1'><i-->
+<!--                                class="fas fa-route"></i> Outbound Routes</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Callforward Routes"-->
+<!--                               onclick='return postURL("?user_sel_menu=Callforward Routes","false"),!1'><i-->
+<!--                                class="fas fa-forward"></i> Callforward Routes</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Hot Transfer Routes"-->
+<!--                               onclick='return postURL("?user_sel_menu=Hot Transfer Routes","false"),!1'><i-->
+<!--                                class="fas fa-random"></i> Hot Transfer Routes</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Service Providers"-->
+<!--                               onclick='return postURL("?user_sel_menu=Service Providers","false"),!1'><i-->
+<!--                                class="fas fa-concierge-bell"></i> Service Providers</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1">-->
+<!--                    <h3>ACD and Queue</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Users"-->
+<!--                               onclick='return postURL("?user_sel_menu=Users","false"),!1'><i class="fas fa-users"></i>-->
+<!--                            Users</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Process"-->
+<!--                               onclick='return postURL("?user_sel_menu=Process","false"),!1'><i-->
+<!--                                class="fas fa-tasks"></i> Process</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Queues"-->
+<!--                               onclick='return postURL("?user_sel_menu=Queues","false"),!1'><i-->
+<!--                                class="fas fa-stream"></i> Queues</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Breaks"-->
+<!--                               onclick='return postURL("?user_sel_menu=Breaks","false"),!1'><i-->
+<!--                                class="fas fa-coffee"></i> Breaks</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Dispositions"-->
+<!--                               onclick='return postURL("?user_sel_menu=Dispositions","false"),!1'><i-->
+<!--                                class="fas fa-clipboard-list"></i> Dispositions</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Sub Disposition"-->
+<!--                               onclick='return postURL("?user_sel_menu=Sub Disposition","false"),!1'><i-->
+<!--                                class="fas fa-clipboard-check"></i> Sub Disposition</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Sub-Sub Disposition"-->
+<!--                               onclick='return postURL("?user_sel_menu=Sub-Sub Disposition","false"),!1'><i-->
+<!--                                class="fas fa-clipboard"></i> Sub-Sub Disposition</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Lead Re-Attempts"-->
+<!--                               onclick='return postURL("?user_sel_menu=Lead Re-Attempts","false"),!1'><i-->
+<!--                                class="fas fa-redo-alt"></i> Lead Re-Attempts</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1"><h3>CRM</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=CRM" onclick='return postURL("?user_sel_menu=CRM","false"),!1'><i-->
+<!--                                class="fas fa-address-book"></i> CRM</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Lists"-->
+<!--                               onclick='return postURL("?user_sel_menu=Lists","false"),!1'><i class="fas fa-list"></i>-->
+<!--                            Lists</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Callback Assignments"-->
+<!--                               onclick='return postURL("?user_sel_menu=Callback Assignments","false"),!1'><i-->
+<!--                                class="fas fa-phone-alt"></i> Callback Assignments</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Scripts"-->
+<!--                               onclick='return postURL("?user_sel_menu=Scripts","false"),!1'><i-->
+<!--                                class="fas fa-file-alt"></i> Scripts</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Block Caller"-->
+<!--                               onclick='return postURL("?user_sel_menu=Block Caller","false"),!1'><i-->
+<!--                                class="fas fa-ban"></i> Block Caller</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Custom Missed Settings"-->
+<!--                               onclick='return postURL("?user_sel_menu=Custom Missed Settings","false"),!1'><i-->
+<!--                                class="fas fa-cogs"></i> Custom Missed Settings</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Auto Email Settings"-->
+<!--                               onclick='return postURL("?user_sel_menu=Auto Email Settings","false"),!1'><i-->
+<!--                                class="fas fa-envelope"></i> Auto Email Settings</a></li>-->
+<!--                        <li><a href="?user_sel_menu=IvrCallback Lead Settings"-->
+<!--                               onclick='return postURL("?user_sel_menu=IvrCallback Lead Settings","false"),!1'><i-->
+<!--                                class="fas fa-headset"></i> IvrCallback Lead Settings</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1"><h3>IVR</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Audio Files"-->
+<!--                               onclick='return postURL("?user_sel_menu=Audio Files","false"),!1'><i-->
+<!--                                class="fas fa-music"></i> Audio Files</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Recording Studio"-->
+<!--                               onclick='return postURL("?user_sel_menu=Recording Studio","false"),!1'><i-->
+<!--                                class="fas fa-microphone"></i> Recording Studio</a></li>-->
+<!--                        <li><a href="?user_sel_menu=IVRS" onclick='return postURL("?user_sel_menu=IVRS","false"),!1'><i-->
+<!--                                class="fas fa-voicemail"></i> IVRS</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Customer Feedback"-->
+<!--                               onclick='return postURL("?user_sel_menu=Customer Feedback","false"),!1'><i-->
+<!--                                class="fas fa-comments"></i> Customer Feedback</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1"><h3>WhatsApp</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li>-->
+<!--                            <a href="https://h248.deepijatel.in/ConVoxCMC/Internal/login_sso?agent_id=admin&password=admin"-->
+<!--                               target="_blank"><i class="fas fa-comments"></i> WhatsApp Admin</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1"><h3>Quality Module</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=QualityModule"-->
+<!--                               onclick='return postURL("?user_sel_menu=QualityModule","false"),!1'><i-->
+<!--                                class="fas fa-star"></i> Quality Module</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <li id="reports_li" style="top:-2px"><a class="drop"> <b><i class="fas fa-chart-line"></i>&nbsp;Reports</b> </a>-->
+<!--            <div class="dropdown_5columns">-->
+<!--                <div class="col_2"><h3>Agent Analysis</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Agent Login Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Agent Login Report","false"),!1'><i-->
+<!--                                class="fas fa-sign-in-alt"></i> Agent Login Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Agent Performance Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Agent Performance Report","false"),!1'><i-->
+<!--                                class="fas fa-chart-bar"></i> Agent Performance Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Agent Disposition Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Agent Disposition Report","false"),!1'><i-->
+<!--                                class="fas fa-user-tag"></i> Agent Disposition Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Queue Performance Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Queue Performance Report","false"),!1'><i-->
+<!--                                class="fas fa-tasks"></i> Queue Performance Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Leads Summary Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Leads Summary Report","false"),!1'><i-->
+<!--                                class="fas fa-list-ul"></i> Leads Summary Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Agent Lockout Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Agent Lockout Report","false"),!1'><i-->
+<!--                                class="fas fa-lock"></i> Agent Lockout Report</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_2"><h3>Process Analysis</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Process Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Process Report","false"),!1'><i-->
+<!--                                class="fas fa-file-alt"></i> Process Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Predictive Outbound Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Predictive Outbound Report","false"),!1'><i-->
+<!--                                class="fas fa-chart-line"></i> Predictive Outbound Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Preview Outbound Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Preview Outbound Report","false"),!1'><i-->
+<!--                                class="fas fa-eye"></i> Preview Outbound Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Progressive Outbound Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Progressive Outbound Report","false"),!1'><i-->
+<!--                                class="fas fa-arrow-alt-circle-up"></i> Progressive Outbound Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=Call Recording Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Call Recording Report","false"),!1'><i-->
+<!--                                class="fas fa-microphone-alt"></i> Call Recording Report</a></li>-->
+<!--                        <li><a href="?user_sel_menu=DNC Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=DNC Report","false"),!1'><i-->
+<!--                                class="fas fa-ban"></i>-->
+<!--                            DNC Report</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1"><h3>Call Traffic Analysis</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Call Hits"-->
+<!--                               onclick='return postURL("?user_sel_menu=Call Hits","false"),!1'><i-->
+<!--                                class="fas fa-phone"></i>-->
+<!--                            Call Hits</a></li>-->
+<!--                        <li><a href="?user_sel_menu=FollowUp Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=FollowUp Report","false"),!1'><i-->
+<!--                                class="fas fa-reply"></i> FollowUp Report</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col_1"><h3>Conference Analysis</h3>-->
+<!--                    <ul class="simple">-->
+<!--                        <li><a href="?user_sel_menu=Conference Report"-->
+<!--                               onclick='return postURL("?user_sel_menu=Conference Report","false"),!1'><i-->
+<!--                                class="fas fa-comments"></i> Conference Report</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--    </ul>-->

@@ -1,19 +1,22 @@
 package com.example.deepijaTel.Controllers;
 
 import com.example.deepijaTel.Models.ConVoxLogin;
+import com.example.deepijaTel.Models.Station;
+import com.example.deepijaTel.Repositories.StationRepository;
 import com.example.deepijaTel.Services.ConVoxServices;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/convox")
@@ -24,6 +27,9 @@ public class ConVoxControllers {
 
     @Autowired
     private ConVoxServices convoxServices;
+
+    @Autowired
+    private StationRepository stationRepository;
 
     @GetMapping("/login")
     public String showAdminLoginForm(Model model) {
@@ -67,6 +73,8 @@ public class ConVoxControllers {
             return "redirect:/convox/login";
         }
         model.addAttribute("username", username);
+        model.addAttribute("page", "convox_dashboard");
+        model.addAttribute("stations", convoxServices.getAllStations());
         return "convox_dashboard";
     }
 
@@ -74,5 +82,56 @@ public class ConVoxControllers {
     public String logout(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
         return "redirect:/convox/login";
+    }
+
+    // Create a new station
+    @PostMapping("/stations")
+    public String createStation(@ModelAttribute Station station, Model model) {
+        stationRepository.save(station);
+        return "redirect:/convox/dashboard";
+    }
+
+    // Get all stations
+    @GetMapping("/stations")
+    public String getAllStations(Model model) {
+        List<Station> stations = stationRepository.findAll();
+        model.addAttribute("stations", stations);
+        return "stations_list";
+    }
+
+    // Get a station by ID
+    @GetMapping("/stations/{id}")
+    public ResponseEntity<Station> getStationById(@PathVariable Long id) {
+        Optional<Station> station = stationRepository.findById(id);
+        return station.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Update a station by ID
+    @PostMapping("/stations/{id}")
+    public String updateStation(@PathVariable Long id, @ModelAttribute Station stationDetails) {
+        Optional<Station> station = stationRepository.findById(id);
+        if (station.isPresent()) {
+            Station existingStation = station.get();
+            existingStation.setStationId(stationDetails.getStationId());
+            existingStation.setStationName(stationDetails.getStationName());
+            existingStation.setActiveStatus(stationDetails.getActiveStatus());
+            stationRepository.save(existingStation);
+            return "redirect:/convox/dashboard";
+        } else {
+            return "redirect:/convox/dashboard"; // Or an error page
+        }
+    }
+
+
+    // Delete a station by ID
+    @DeleteMapping("/stations/delete/{id}")
+    public ResponseEntity<Void> deleteStation(@PathVariable Long id) {
+        try {
+            stationRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace(); // Print the stack trace for debugging
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
