@@ -9,18 +9,35 @@
   }
 
   function toggleSection(element) {
-      const section = element.nextElementSibling;
-      const toggleIcon = element.querySelector('.toggle-icon');
+	const section = element.nextElementSibling;
+	const toggleIcon = element.querySelector('.toggle-icon');
+	const allSections = document.querySelectorAll('.menu-links');
+	const allIcons = document.querySelectorAll('.menu-section .toggle-icon');
 
-      if (section.style.display === "block") {
-          section.style.display = "none";
-          toggleIcon.classList.remove('fa-caret-down');
-          toggleIcon.classList.add('fa-caret-right');
-      } else {
-          section.style.display = "block";
-          toggleIcon.classList.remove('fa-caret-right');
-          toggleIcon.classList.add('fa-caret-down');
-      }
+	// Hide all sections and reset all icons
+	allSections.forEach(sec => {
+		if (sec !== section) {
+			sec.style.display = "none";
+		}
+	});
+
+	allIcons.forEach(icon => {
+		if (icon !== toggleIcon) {
+			icon.classList.remove('fa-caret-down');
+			icon.classList.add('fa-caret-right');
+		}
+	});
+
+	if (section.style.display === "block") {
+		section.style.display = "none";
+		toggleIcon.classList.remove('fa-caret-down');
+		toggleIcon.classList.add('fa-caret-right');
+	}
+	else {
+		section.style.display = "block";
+		toggleIcon.classList.remove('fa-caret-right');
+		toggleIcon.classList.add('fa-caret-down');
+	}
   }
 
   function updateTime() {
