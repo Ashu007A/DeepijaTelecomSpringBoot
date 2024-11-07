@@ -239,3 +239,138 @@
 <!--            </div>-->
 <!--        </li>-->
 <!--    </ul>-->
+
+
+
+
+
+
+
+
+/* Navigation Menu Styles */ #menu { list-style-type: none; padding: 0; margin: 0; background-color: #333; font-family: 'Arial', sans-serif; } #menu li { position: relative; float: left; display: inline-block; } #menu li a { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; transition: background-color 0.3s ease, color 0.3s ease; } #menu li a:hover, #menu li a:focus { background-color: #575757; color: #fff; } #menu .dropdown_2columns, #menu .dropdown_5columns, #menu .dropdown_7columns { display: none; position: absolute; background-color: #f9f9f9; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 1; } #menu li:hover .dropdown_2columns, #menu li:hover .dropdown_5columns, #menu li:hover .dropdown_7columns { display: block; } /* Style for dropdown columns */ #menu .dropdown_2columns .col_1, #menu .dropdown_5columns .col_2, #menu .dropdown_7columns .col_1, #menu .dropdown_7columns .col_2 { float: left; width: 200px; padding: 10px; } #menu .dropdown_7columns { display: flex; flex-wrap: wrap; } #menu .dropdown_7columns .col_1 { flex: 1 1 150px; /* Adjust width as needed */ padding: 10px; box-sizing: border-box; } #menu .dropdown_2columns h3, #menu .dropdown_5columns h3, #menu .dropdown_7columns h3 { margin-top: 0; } #menu .dropdown_2columns ul, #menu .dropdown_5columns ul, #menu .dropdown_7columns ul { list-style-type: none; padding: 0; margin: 0; } #menu .dropdown_2columns ul li a, #menu .dropdown_5columns ul li a, #menu .dropdown_7columns ul li a { color: #333; text-decoration: none; display: block; padding: 5px 0; transition: color 0.3s ease; } #menu .dropdown_2columns ul li a:hover, #menu .dropdown_5columns ul li a:hover, #menu .dropdown_7columns ul li a:hover { color: #0171ba; }
+
+
+
+
+
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("add-station-button").addEventListener("click", function() {
+            resetForm(); // Reset the form first
+            document.getElementById("form-heading").innerText = "Station Registration";
+            document.getElementById("submit-button").innerText = "Submit";
+            document.getElementById("station-form").action = "/convox/stations"; // Set form action for adding a new station
+            document.getElementById("station-form-container").style.display = "block";
+            document.getElementById("update-station-search").style.display = "none"; // Hide the search section
+            document.getElementById("delete-station-search").style.display = "none";
+        });
+
+        document.getElementById("update-station-button").addEventListener("click", function() {
+            document.getElementById("update-station-search").style.display = "block";
+            document.getElementById("station-form-container").style.display = "none"; // Hide the form initially
+            document.getElementById("delete-station-search").style.display = "none";
+        });
+
+        document.getElementById("delete-station-button").addEventListener("click", function() {
+            document.getElementById("delete-station-search").style.display = "block";
+            document.getElementById("station-form-container").style.display = "none"; // Hide the form
+            document.getElementById("update-station-search").style.display = "none"; // Hide the search sections
+        });
+
+
+
+        window.resetForm = function() {
+            document.getElementById("station-form").reset();
+            document.getElementById("station-form-container").style.display = "none";
+            document.getElementById("update-station-search").style.display = "none";
+        };
+
+        window.searchStation = function() {
+            var searchValue = document.getElementById("search-station-id").value.toLowerCase();
+
+            var foundStation = stations.find(station =>
+                station.stationId.toLowerCase() === searchValue || station.stationName.toLowerCase() === searchValue
+            );
+
+            if (foundStation) {
+                document.getElementById("station-id").value = foundStation.stationId;
+                document.getElementById("station-name").value = foundStation.stationName;
+                document.getElementById("active-status").value = foundStation.activeStatus;
+                document.getElementById("form-heading").innerText = "Edit Station";
+                document.getElementById("submit-button").innerText = "Update Station";
+                document.getElementById("station-form").action = "/convox/stations/" + foundStation.id; // Set form action for update
+                document.getElementById("station-form-container").style.display = "block";
+            } else {
+                alert("Station not found");
+            }
+        };
+
+        window.deleteSearchStation = function() {
+            var searchValue = document.getElementById("delete-search-station-id").value.toLowerCase();
+            var foundStation = stations.find(station => station.stationId.toLowerCase() === searchValue || station.stationName.toLowerCase() === searchValue );
+            if (foundStation) {
+                if (confirm('Are you sure you want to delete this station with ID/Name: ' + searchValue + '?')) {
+                    deleteStation(foundStation.id);
+                }
+            }
+            else {
+                alert("Station not found");
+            }
+        };
+        window.deleteStation = function(id) {
+            fetch(`/convox/stations/delete/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Station deleted successfully');
+                    location.reload(); // Reload the page to reflect changes
+                } else {
+                    alert('Failed to delete station');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the station');
+            });
+        };
+    });
+
+</script>
+
+
+
+
+
+
+//  document.addEventListener("DOMContentLoaded", function() {
+//    var dropdowns = document.querySelectorAll("#menu .drop");
+//
+//    dropdowns.forEach(function(dropdown) {
+//      dropdown.addEventListener("click", function(event) {
+//        event.preventDefault();
+//        var dropdownMenu = this.nextElementSibling;
+//
+//        if (dropdownMenu.style.display === "block") {
+//          dropdownMenu.style.display = "none";
+//        } else {
+//          dropdownMenu.style.display = "block";
+//        }
+//      });
+//    });
+//
+//    window.addEventListener("click", function(event) {
+//      if (!event.target.matches("#menu .drop")) {
+//        var dropdownMenus = document.querySelectorAll("#menu .dropdown_2columns, #menu .dropdown_5columns, #menu .dropdown_7columns");
+//
+//        dropdownMenus.forEach(function(menu) {
+//          menu.style.display = "none";
+//        });
+//      }
+//    });
+//  });
