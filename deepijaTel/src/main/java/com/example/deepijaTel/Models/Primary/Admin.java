@@ -1,27 +1,26 @@
-package com.example.deepijaTel.Models;
+package com.example.deepijaTel.Models.Primary;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "time_entries")
+@Table(name = "admins")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TimeEntry {
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
-    private String punchIn;
-
-    @Column
-    private String punchOut;
+    @JsonIgnore
+    private String password;
 }

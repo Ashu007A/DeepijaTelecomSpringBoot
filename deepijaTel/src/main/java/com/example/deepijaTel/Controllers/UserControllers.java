@@ -1,6 +1,6 @@
 package com.example.deepijaTel.Controllers;
 
-import com.example.deepijaTel.Models.User;
+import com.example.deepijaTel.Models.Primary.User;
 import com.example.deepijaTel.Services.UserServices;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;

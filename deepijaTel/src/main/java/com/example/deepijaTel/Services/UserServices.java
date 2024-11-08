@@ -1,6 +1,6 @@
 package com.example.deepijaTel.Services;
 
-import com.example.deepijaTel.Models.User;
+import com.example.deepijaTel.Models.Primary.User;
 
 public interface UserServices {
 

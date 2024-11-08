@@ -1,7 +1,7 @@
 package com.example.deepijaTel.Services;
 
-import com.example.deepijaTel.Models.Admin;
-import com.example.deepijaTel.Models.User;
+import com.example.deepijaTel.Models.Primary.Admin;
+import com.example.deepijaTel.Models.Primary.User;
 
 import java.util.List;
 

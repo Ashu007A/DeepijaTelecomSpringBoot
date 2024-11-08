@@ -1,7 +1,7 @@
 package com.example.deepijaTel.Controllers;
 
-import com.example.deepijaTel.Models.Admin;
-import com.example.deepijaTel.Models.User;
+import com.example.deepijaTel.Models.Primary.Admin;
+import com.example.deepijaTel.Models.Primary.User;
 import com.example.deepijaTel.Services.AdminServices;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

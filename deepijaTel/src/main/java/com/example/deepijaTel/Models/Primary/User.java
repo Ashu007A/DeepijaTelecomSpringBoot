@@ -1,4 +1,4 @@
-package com.example.deepijaTel.Models;
+package com.example.deepijaTel.Models.Primary;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

@@ -247,9 +247,14 @@ body {
 }
 
 .action-button:active {
-    background-color: #003f7f; /* Even darker shade for active */
+    /* background-color: #003f7f;  Even darker shade for active */
+    background-color: red;
     transform: translateY(0);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.active-button {
+    background-color: green; /* Color for the active button */
 }
 
 /* Table Styles */

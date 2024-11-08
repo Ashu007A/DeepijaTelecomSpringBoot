@@ -1,8 +1,8 @@
 package com.example.deepijaTel.Controllers;
 
-import com.example.deepijaTel.Models.ConVoxLogin;
-import com.example.deepijaTel.Models.Station;
-import com.example.deepijaTel.Repositories.StationRepository;
+import com.example.deepijaTel.Models.Secondary.ConVoxLogin;
+import com.example.deepijaTel.Models.Secondary.Station;
+import com.example.deepijaTel.Repositories.Secondary.StationRepository;
 import com.example.deepijaTel.Services.ConVoxServices;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -37,22 +37,45 @@ public class ConVoxControllers {
         return "convox_login";
     }
 
+//    @PostMapping("/login")
+//    public String login(@RequestParam("username") String username,
+//                        @RequestParam("password") String password,
+//                        Model model) {
+//        logger.info("Attempting to log in with username: {}", username);
+//        ConVoxLogin user = convoxServices.findByUsername(username);
+//        if (user != null && user.getPassword().equals(password)) {
+//            logger.info("Login successful for username: {}", username);
+//            model.addAttribute("username", username);
+//            return "redirect:/convox/dashboard";
+//        } else {
+//            logger.warn("Login failed for username: {}", username);
+//            model.addAttribute("error", "Invalid username or password! ");
+//            return "convox_login";
+//        }
+//    }
+
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         Model model) {
         logger.info("Attempting to log in with username: {}", username);
         ConVoxLogin user = convoxServices.findByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
-            logger.info("Login successful for username: {}", username);
-            model.addAttribute("username", username);
-            return "redirect:/convox/dashboard";
+
+        if (user != null) {
+            logger.info("Retrieved user: {} with password: {}", user.getUsername(), user.getPassword());
+            if (user.getPassword().equals(password)) {
+                logger.info("Login successful for username: {}", username);
+                model.addAttribute("username", username);
+                return "redirect:/convox/dashboard";
+            }
         } else {
-            logger.warn("Login failed for username: {}", username);
-            model.addAttribute("error", "Invalid username or password! ");
-            return "convox_login";
+            logger.warn("No user found for username: {}", username);
         }
+        logger.warn("Login failed for username: {}", username);
+        model.addAttribute("error", "Invalid username or password!");
+        return "convox_login";
     }
+
 
     @PostMapping("/register")
     public String register(@RequestParam("username") String username,

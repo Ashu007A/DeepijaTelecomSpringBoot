@@ -1,6 +1,6 @@
-package com.example.deepijaTel.Repositories;
+package com.example.deepijaTel.Repositories.Secondary;
 
-import com.example.deepijaTel.Models.Station;
+import com.example.deepijaTel.Models.Secondary.Station;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.example.deepijaTel.Services;
 
-import com.example.deepijaTel.Models.TimeEntry;
+import com.example.deepijaTel.Models.Primary.TimeEntry;
 import java.util.List;
 
 public interface TimeEntryServices {

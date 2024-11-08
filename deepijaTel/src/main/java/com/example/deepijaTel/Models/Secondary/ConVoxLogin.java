@@ -1,4 +1,4 @@
-package com.example.deepijaTel.Models;
+package com.example.deepijaTel.Models.Secondary;
 
 import jakarta.persistence.*;
 import lombok.*;

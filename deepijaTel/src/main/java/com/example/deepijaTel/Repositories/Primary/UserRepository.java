@@ -1,6 +1,6 @@
-package com.example.deepijaTel.Repositories;
+package com.example.deepijaTel.Repositories.Primary;
 
-import com.example.deepijaTel.Models.User;
+import com.example.deepijaTel.Models.Primary.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

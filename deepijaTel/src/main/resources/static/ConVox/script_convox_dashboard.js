@@ -67,6 +67,22 @@ function confirmLogout(event) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    var buttons = document.querySelectorAll('.top');
+    var resetButton = document.getElementById('resetButton');
+	buttons.forEach(function (button) {
+		button.addEventListener('click', function () {
+			buttons.forEach(function (btn) {
+				btn.classList.remove('active-button');
+			});
+			button.classList.add('active-button');
+		});
+	});
+	resetButton.addEventListener('click', function () {
+        buttons.forEach(function (btn) {
+            btn.classList.remove('active-button');
+        });
+    });
+
     document.getElementById("add-station-button").addEventListener("click", function() {
         resetForm(); // Reset the form first
         document.getElementById("form-heading").innerText = "Station Registration";

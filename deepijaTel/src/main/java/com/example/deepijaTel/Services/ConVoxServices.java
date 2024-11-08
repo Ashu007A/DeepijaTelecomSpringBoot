@@ -1,7 +1,7 @@
 package com.example.deepijaTel.Services;
 
-import com.example.deepijaTel.Models.ConVoxLogin;
-import com.example.deepijaTel.Models.Station;
+import com.example.deepijaTel.Models.Secondary.ConVoxLogin;
+import com.example.deepijaTel.Models.Secondary.Station;
 
 import java.util.List;
 import java.util.Optional;

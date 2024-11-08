@@ -369,17 +369,18 @@
             <div class="header">
                 <img alt="Convox Logo Dashboard" height="70px" style='background-color: transparent; border-collapse: collapse; border: 0px; margin-left: 30px; object-fit: contain;' th:src="@{/ConVox/logo_convox_dashboard.png}" width="100%">
                 <div class="server-time">
+                    <i class="fa-solid fa-server"></i>
                     <i class="fa-regular fa-clock"></i>
-                    <span id="server-time-text"></span>
+                    <span id="server-time-text"> </span>
                 </div>
                 <a class="logout-button" href="/convox/logout" onclick="confirmLogout(event)">Logout</a>
             </div>
             <div class="button-container" style="text-align: center; margin: 20px 0;">
-                <button class="action-button" id="add-station-button">
+                <button class="action-button top" id="add-station-button">
                     <i class="fa fa-plus"></i> Add Station </button>
-                <button class="action-button" id="update-station-button">
+                <button class="action-button top" id="update-station-button">
                     <i class="fa fa-edit"></i> Update Station </button>
-                <button class="action-button" id="delete-station-button">
+                <button class="action-button top" id="delete-station-button">
                     <i class="fa fa-trash"></i> Delete Station </button>
             </div>
             <div id="update-station-search" style="display: none; text-align: center;">
@@ -412,10 +413,10 @@
                         </select>
                     </div>
                     <button class="submit-button" id="submit-button" type="submit">Submit</button>
-                    <button type="button" class="reset-button" onclick="resetForm()">Reset</button>
+                    <button type="button" id="resetButton" class="reset-button" onclick="resetForm()">Reset</button>
                 </form>
             </div>
-            <h2 style="text-align: center;">Station List</h2>
+            <h2 style="text-align: center; margin-top: 40px;">Station List</h2>
             <table class="station-table" style="text-align: center">
                 <thead>
                     <tr>
