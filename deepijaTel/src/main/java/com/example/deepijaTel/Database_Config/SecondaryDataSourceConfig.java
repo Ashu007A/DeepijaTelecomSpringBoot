@@ -55,7 +55,7 @@ public class SecondaryDataSourceConfig {
 
     private java.util.Properties additionalJpaProperties() {
         java.util.Properties properties = new java.util.Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         return properties;
     }
