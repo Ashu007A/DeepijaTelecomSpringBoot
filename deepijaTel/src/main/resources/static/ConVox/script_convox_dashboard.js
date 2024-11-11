@@ -69,6 +69,8 @@ function confirmLogout(event) {
 document.addEventListener("DOMContentLoaded", function() {
     var buttons = document.querySelectorAll('.top');
     var resetButton = document.getElementById('resetButton');
+    var resetButton1 = document.getElementById('resetButton1');
+    var resetButton2 = document.getElementById('resetButton2');
 	buttons.forEach(function (button) {
 		button.addEventListener('click', function () {
 			buttons.forEach(function (btn) {
@@ -78,6 +80,16 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	});
 	resetButton.addEventListener('click', function () {
+        buttons.forEach(function (btn) {
+            btn.classList.remove('active-button');
+        });
+    });
+    resetButton1.addEventListener('click', function () {
+        buttons.forEach(function (btn) {
+            btn.classList.remove('active-button');
+        });
+    });
+    resetButton2.addEventListener('click', function () {
         buttons.forEach(function (btn) {
             btn.classList.remove('active-button');
         });

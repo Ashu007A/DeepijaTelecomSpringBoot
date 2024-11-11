@@ -387,11 +387,13 @@
                 <h3>Search Station to Update</h3>
                 <input type="text" id="search-station-id" placeholder="Enter Station ID or Name">
                 <button class="action-button" onclick="searchStation()">Search</button>
+                <button type="button" id="resetButton1" class="reset-button1" onclick="resetForm()">Cancel</button>
             </div>
             <div id="delete-station-search" style="display: none; text-align: center;">
                 <h3>Search Station to Delete</h3>
                 <input type="text" id="delete-search-station-id" placeholder="Enter Station ID or Name">
                 <button class="action-button" onclick="deleteSearchStation()">Search</button>
+                <button type="button" id="resetButton2" class="reset-button1" onclick="resetForm()">Cancel</button>
             </div>
             <div id="station-form-container" style="display: none;">
                 <form class="station-form" id="station-form" method="post" action="/convox/stations">

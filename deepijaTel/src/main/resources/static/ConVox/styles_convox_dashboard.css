@@ -221,7 +221,8 @@ body {
     margin: 20px 0;
 }
 
-.action-button {
+.action-button,
+.reset-button1 {
     background-color: #007bff; /* Primary color */
     color: #fff;
     padding: 10px 20px;
@@ -236,17 +237,20 @@ body {
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
-.action-button i {
+.action-button i,
+.reset-button1 i{
     margin-right: 10px;
 }
 
-.action-button:hover {
+.action-button:hover,
+.reset-button1:hover {
     background-color: #0056b3; /* Darker shade for hover */
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.action-button:active {
+.action-button:active,
+.reset-button1:active {
     /* background-color: #003f7f;  Even darker shade for active */
     background-color: red;
     transform: translateY(0);
