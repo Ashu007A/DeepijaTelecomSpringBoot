@@ -1,8 +1,8 @@
-package com.example.deepijaTel.Services.Implementations;
+package com.example.deepijaTel.Services.Primary.Implementations;
 
 import com.example.deepijaTel.Models.Primary.User;
 import com.example.deepijaTel.Repositories.Primary.UserRepository;
-import com.example.deepijaTel.Services.UserServices;
+import com.example.deepijaTel.Services.Primary.UserServices;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

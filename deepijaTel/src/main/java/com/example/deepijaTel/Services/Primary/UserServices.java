@@ -1,4 +1,4 @@
-package com.example.deepijaTel.Services;
+package com.example.deepijaTel.Services.Primary;
 
 import com.example.deepijaTel.Models.Primary.User;
 

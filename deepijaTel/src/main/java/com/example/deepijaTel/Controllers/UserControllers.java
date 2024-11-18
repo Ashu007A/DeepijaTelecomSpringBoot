@@ -1,7 +1,7 @@
 package com.example.deepijaTel.Controllers;
 
 import com.example.deepijaTel.Models.Primary.User;
-import com.example.deepijaTel.Services.UserServices;
+import com.example.deepijaTel.Services.Primary.UserServices;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class UserControllers {
     @GetMapping("/user_login")
     public String showLoginForm(Model model) {
         model.addAttribute("page", "user_login");
-        return "user_login";  // Refers to user_login.html in the templates folder
+        return "user_login";
     }
 
     @PostMapping("/user_login")
@@ -78,7 +78,7 @@ public class UserControllers {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("page", "register");
-        return "register";  // Refers to register.html in the templates folder
+        return "register";
     }
 
     @PostMapping("/register")

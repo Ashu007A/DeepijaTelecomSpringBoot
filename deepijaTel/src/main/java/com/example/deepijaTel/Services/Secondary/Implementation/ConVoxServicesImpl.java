@@ -1,9 +1,10 @@
-package com.example.deepijaTel.Services;
+package com.example.deepijaTel.Services.Secondary.Implementation;
 
 import com.example.deepijaTel.Models.Secondary.ConVoxLogin;
 import com.example.deepijaTel.Models.Secondary.Station;
 import com.example.deepijaTel.Repositories.Secondary.ConVoxRepository;
 import com.example.deepijaTel.Repositories.Secondary.StationRepository;
+import com.example.deepijaTel.Services.Secondary.ConVoxServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

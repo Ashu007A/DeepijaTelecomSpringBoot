@@ -1,7 +1,7 @@
 package com.example.deepijaTel.Controllers;
 
 import com.example.deepijaTel.Models.Primary.TimeEntry;
-import com.example.deepijaTel.Services.TimeEntryServices;
+import com.example.deepijaTel.Services.Primary.TimeEntryServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

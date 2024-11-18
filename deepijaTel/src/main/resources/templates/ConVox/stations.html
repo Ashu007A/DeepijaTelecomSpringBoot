@@ -7,12 +7,13 @@
         <meta content="Advanced Call Center Solution for streamlined operations and enhanced customer service." name="description">
         <meta content="Call Center, Customer Service, CRM, Communication, Automation, Management, Solution" name="keywords">
         <meta content="Deepija Telecom Pvt Ltd" name="author">
-        <title>ConVox Dashboard</title>
+        <title>Stations</title>
         <link rel="icon" th:href="@{/ConVox/favicon_convox.ico}" type="image/x-icon">
         <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" th:href="@{/ConVox/styles_convox_dashboard.css}">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <script src="/ConVox/script_convox_dashboard.js" defer></script>
+        <script src="/ConVox/script_convox_stations.js" defer></script>
     </head>
     <body>
         <div class="sidebar" id="sidebar">
@@ -72,27 +73,27 @@
                     <i class="fa-solid fa-caret-right toggle-icon"></i>
                 </h3>
                 <div class="menu-links">
-                    <a href="?user_sel_menu=Servers" onclick="postURL('?user_sel_menu=Servers', 'false'); return false;">
+                    <a th:href="@{/convox/servers}">
                         <i class="fas fa-server"></i>
                         <span>Servers</span>
                     </a>
-                    <a href="?user_sel_menu=Web Servers" onclick="postURL('?user_sel_menu=Web Servers', 'false'); return false;">
+                    <a th:href="@{/convox/web-servers}">
                         <i class="fas fa-globe"></i>
                         <span>Web Servers</span>
                     </a>
-                    <a href="?user_sel_menu=Stations" onclick="postURL('?user_sel_menu=Stations', 'false'); return false;">
+                    <a th:href="@{/convox/stations}">
                         <i class="fas fa-network-wired"></i>
                         <span>Stations</span>
                     </a>
-                    <a href="?user_sel_menu=Internal Stations" onclick="postURL('?user_sel_menu=Internal Stations', 'false'); return false;">
+                    <a th:href="@{/convox/internal-stations}">
                         <i class="fas fa-sitemap"></i>
                         <span>Internal Stations</span>
                     </a>
-                    <a href="?user_sel_menu=Lock Out Release" onclick="postURL('?user_sel_menu=Lock Out Release', 'false'); return false;">
+                    <a th:href="@{/convox/lock-out-release}">
                         <i class="fas fa-unlock-alt"></i>
                         <span>Lock Out Release</span>
                     </a>
-                    <a href="?user_sel_menu=Lockout Settings" onclick="postURL('?user_sel_menu=Lockout Settings', 'false'); return false;">
+                    <a th:href="@{/convox/lockout-settings}">
                         <i class="fas fa-cog"></i>
                         <span>Lockout Settings</span>
                     </a>
@@ -373,6 +374,7 @@
                     <i class="fa-regular fa-clock"></i>
                     <span id="server-time-text"> </span>
                 </div>
+                <a class="dashboard-button" href="/convox/dashboard">Dashboard</a>
                 <a class="logout-button" href="/convox/logout" onclick="confirmLogout(event)">Logout</a>
             </div>
             <div class="button-container" style="text-align: center; margin: 20px 0;">
@@ -415,7 +417,7 @@
                         </select>
                     </div>
                     <button class="submit-button" id="submit-button" type="submit">Submit</button>
-                    <button type="button" id="resetButton" class="reset-button" onclick="resetForm()">Reset</button>
+                    <button type="button" id="resetButton" class="reset-button" onclick="resetForm()">Cancel</button>
                 </form>
             </div>
             <h2 style="text-align: center; margin-top: 40px;">Station List</h2>

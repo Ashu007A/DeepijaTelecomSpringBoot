@@ -1,8 +1,8 @@
-package com.example.deepijaTel.Services.Implementations;
+package com.example.deepijaTel.Services.Primary.Implementations;
 
 import com.example.deepijaTel.Models.Primary.TimeEntry;
 import com.example.deepijaTel.Repositories.Primary.TimeEntryRepository;
-import com.example.deepijaTel.Services.TimeEntryServices;
+import com.example.deepijaTel.Services.Primary.TimeEntryServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

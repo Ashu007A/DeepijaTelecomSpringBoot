@@ -1,4 +1,4 @@
-package com.example.deepijaTel.Services;
+package com.example.deepijaTel.Services.Secondary;
 
 import com.example.deepijaTel.Models.Secondary.ConVoxLogin;
 import com.example.deepijaTel.Models.Secondary.Station;

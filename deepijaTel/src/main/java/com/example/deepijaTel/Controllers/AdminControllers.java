@@ -2,7 +2,7 @@ package com.example.deepijaTel.Controllers;
 
 import com.example.deepijaTel.Models.Primary.Admin;
 import com.example.deepijaTel.Models.Primary.User;
-import com.example.deepijaTel.Services.AdminServices;
+import com.example.deepijaTel.Services.Primary.AdminServices;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
