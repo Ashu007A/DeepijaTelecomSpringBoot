@@ -21,9 +21,15 @@ public class StationControllers {
         return stationServices.getAllStations();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{stationId}")
     public ResponseEntity<Station> getStationById(@PathVariable Long id) {
         Optional<Station> station = stationServices.getStationById(id);
+        return station.isPresent() ? ResponseEntity.ok(station.get()) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/stationId/{stationId}")
+    public ResponseEntity<Station> getStationByStationId(@PathVariable String stationId) {
+        Optional<Station> station = stationServices.getStationByStationId(stationId);
         return station.isPresent() ? ResponseEntity.ok(station.get()) : ResponseEntity.notFound().build();
     }
 

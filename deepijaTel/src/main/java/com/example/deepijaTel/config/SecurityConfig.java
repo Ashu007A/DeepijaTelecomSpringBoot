@@ -23,23 +23,37 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
             .authorizeHttpRequests()
             .requestMatchers(
-                    "/api/register",
-                    "/api/login", "/api/**",
-                    "/backgrounds.jpg", "/userbg.jpg", "/adminbg.jpg", "/styles.css", "/favicon.ico",
-                    "/ConVox/dashboard.jpg", "/ConVox/logo_convox_login.png", "/ConVox/logo_convox_dashboard.png", "/ConVox/favicon_convox.ico", "/ConVox/styles_convox_login.css", "/ConVox/styles_convox_dashboard.css", "/ConVox/script_convox_dashboard.js", "/ConVox/script_convox_stations.js", "/ConVox/script_convox_servers.js",
-                    "/register",
-                    "/convox/login",
-                    "/user_login",
-                    "/admin/login",
-                    "/dashboard",
-                    "/convox/dashboard",
-                    "/convox/logout",
-                    "/convox/servers",
-                    "/convox/stations",
-                    "/static/**", "/resources/**", "/ConVox", "/js/**"
+                "/api/**", "convox/**",
+                "/backgrounds.jpg",
+                "/userbg.jpg",
+                "/adminbg.jpg",
+                "/styles.css",
+                "/favicon.ico",
+                "/ConVox/dashboard.jpg",
+                "/ConVox/logo_convox_login.png",
+                "/ConVox/logo_convox_dashboard.png",
+                "/ConVox/favicon_convox.ico",
+                "/ConVox/styles_convox_login.css",
+                "/ConVox/styles_convox_dashboard.css",
+                "/ConVox/script_convox_dashboard.js",
+                "/ConVox/script_convox_stations.js",
+                "/ConVox/script_convox_servers.js",
+                "/register",
+                "/convox/login",
+                "/user_login",
+                "/admin/login",
+                "/dashboard",
+                "/convox/dashboard",
+                "/convox/logout",
+                "/convox/servers",
+                "/convox/stations",
+                "/static/**",
+                "/resources/**",
+                "/ConVox",
+                "/js/**"
             ).permitAll()
             .anyRequest().authenticated()
             .and()
