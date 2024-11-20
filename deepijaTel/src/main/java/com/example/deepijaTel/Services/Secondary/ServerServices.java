@@ -9,6 +9,7 @@ public interface ServerServices {
     Server createServer(Server server);
     List<Server> getAllServers();
     Optional<Server> getServerById(Long id);
+    Optional<Server> getServerByServerId(String serverId);
     Server updateServer(Long id, Server serverDetails);
     void deleteServer(Long id);
 }

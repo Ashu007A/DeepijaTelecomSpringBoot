@@ -30,6 +30,8 @@ public class ServerServicesImpl implements ServerServices {
         return serverRepository.findById(id);
     }
 
+    @Override public Optional<Server> getServerByServerId(String serverId) { return serverRepository.findByServerId(serverId); }
+
     @Override
     public Server updateServer(Long id, Server serverDetails) {
         Optional<Server> optionalServer = serverRepository.findById(id);
