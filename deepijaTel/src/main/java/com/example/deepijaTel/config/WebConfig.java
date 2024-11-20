@@ -18,6 +18,24 @@ public class WebConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true);
+
+                registry.addMapping("/convox/**")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+
+//                registry.addMapping("/api/**")
+//                        .allowedOrigins("http://172.21.22.195:3000")
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                        .allowedHeaders("*")
+//                        .allowCredentials(true);
+//
+//                registry.addMapping("/convox/**")
+//                        .allowedOrigins("http://172.21.22.195:3000")
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                        .allowedHeaders("*")
+//                        .allowCredentials(true);
             }
         };
     }

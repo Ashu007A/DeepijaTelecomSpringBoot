@@ -63,7 +63,7 @@ public class StationController {
     @PostMapping("/stations/{id}")
     public String updateStation(@PathVariable Long id, @ModelAttribute Station stationDetails) {
         stationServices.updateStation(id, stationDetails);
-        return "redirect:/convox/stations"; // Stay on the same page after update
+        return "redirect:/convox/stations";
     }
 
     // Delete a station by ID
