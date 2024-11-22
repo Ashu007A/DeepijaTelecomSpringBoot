@@ -26,7 +26,7 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
             .authorizeHttpRequests()
             .requestMatchers(
-                "/api/**", "convox/**",
+                "/api/**", "convox/**", "/api/database_status/**",
                 "/backgrounds.jpg",
                 "/userbg.jpg",
                 "/adminbg.jpg",
@@ -53,7 +53,8 @@ public class SecurityConfig {
                 "/static/**",
                 "/resources/**",
                 "/ConVox",
-                "/js/**"
+                "/js/**",
+                "/log-test"
             ).permitAll()
             .anyRequest().authenticated()
             .and()
