@@ -68,7 +68,9 @@ public class DatabaseController {
             logLines.add("tail: cannot open '" + filePath + "' for reading: " + e.getMessage());
         }
         return logLines;
-    } @GetMapping("/database_status/applicationErrorLog")
+    }
+
+    @GetMapping("/database_status/applicationErrorLog")
     public List<Map<String, Object>> getApplicationErrorLog() {
         String sql = "SELECT message, subject FROM application_errors"; // Adjust the query as needed
         return jdbcTemplate.queryForList(sql);
