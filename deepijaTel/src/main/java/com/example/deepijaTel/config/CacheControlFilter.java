@@ -1,4 +1,4 @@
-package com.example.deepijaTel.Config;
+package com.example.deepijaTel.config;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletResponse;
